@@ -20,7 +20,7 @@
             max-width: 800px; margin: 0 auto;
             display: flex; align-items: center; gap: 0.75rem;
         }
-        .logo { height: 32px; width: auto; }
+        .logo { height: 40px; width: auto; border-radius: 50%; }
         .header h1 { font-size: 1.125rem; font-weight: 600; color: #374151; }
         .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
         .update-info {
@@ -30,7 +30,7 @@
         .section { margin-bottom: 2rem; }
         .section-header {
             display: flex; align-items: center; gap: 0.5rem;
-            margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1d5db;
         }
         .section-title { font-size: 1rem; font-weight: 600; color: #374151; }
         .badge {
@@ -48,36 +48,23 @@
         .cor-header { display: flex; justify-content: space-between; align-items: flex-start; }
         .cor-nome { font-weight: 500; color: #1f2937; font-size: 0.9375rem; }
         .cor-fornecedor { font-size: 0.8125rem; color: #6b7280; font-weight: 400; }
-        .cor-nome-forn {
-            font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem;
-        }
-        .loading {
-            text-align: center; padding: 3rem; color: #6b7280;
-        }
+        .cor-nome-forn { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; }
+        .loading { text-align: center; padding: 3rem; color: #6b7280; }
         .loading-spinner {
             width: 24px; height: 24px; border: 2px solid #e5e7eb;
             border-top-color: #6b7280; border-radius: 50%;
             animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .footer {
-            text-align: center; padding: 2rem 1rem;
-            font-size: 0.75rem; color: #9ca3af;
-        }
+        .footer { text-align: center; padding: 2rem 1rem; font-size: 0.75rem; color: #9ca3af; }
         .footer a { color: #6b7280; text-decoration: none; }
         .count { font-size: 0.75rem; color: #9ca3af; font-weight: 400; }
-        @media (min-width: 640px) {
-            .container { padding: 1.5rem; }
-            .header h1 { font-size: 1.25rem; }
-            .section-title { font-size: 1.125rem; }
-            .cor-card { padding: 1rem 1.25rem; }
-        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <img src="logo.png" alt="Conecta" class="logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="Conecta" class="logo">
             <h1>Cores Movelmar</h1>
         </div>
     </header>
@@ -112,10 +99,7 @@
                 const cores = await response.json();
                 renderCores(cores);
             } catch (error) {
-                document.getElementById('content').innerHTML = `
-                    <div class="loading" style="color: #ef4444;">
-                        Erro ao carregar cores. Tente novamente.
-                    </div>`;
+                document.getElementById('content').innerHTML = '<div class="loading" style="color: #ef4444;">Erro ao carregar cores.</div>';
             }
         }
 
@@ -125,51 +109,39 @@
             let html = '';
             
             if (sublime.length > 0) {
-                html += `
-                    <section class="section">
-                        <div class="section-header">
-                            <h2 class="section-title">Coleção Sublime</h2>
-                            <span class="badge badge-mdp">MDP</span>
-                            <span class="count">${sublime.length} cores</span>
-                        </div>
-                        <div class="cores-grid">
-                            ${sublime.map(cor => renderCorCard(cor)).join('')}
-                        </div>
-                    </section>`;
+                html += `<section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Coleção Sublime</h2>
+                        <span class="badge badge-mdp">MDP</span>
+                        <span class="count">${sublime.length} cores</span>
+                    </div>
+                    <div class="cores-grid">${sublime.map(renderCorCard).join('')}</div>
+                </section>`;
             }
             
             if (unique.length > 0) {
-                html += `
-                    <section class="section">
-                        <div class="section-header">
-                            <h2 class="section-title">Coleção Unique</h2>
-                            <span class="badge badge-mdf">MDF</span>
-                            <span class="count">${unique.length} cores</span>
-                        </div>
-                        <div class="cores-grid">
-                            ${unique.map(cor => renderCorCard(cor)).join('')}
-                        </div>
-                    </section>`;
+                html += `<section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Coleção Unique</h2>
+                        <span class="badge badge-mdf">MDF</span>
+                        <span class="count">${unique.length} cores</span>
+                    </div>
+                    <div class="cores-grid">${unique.map(renderCorCard).join('')}</div>
+                </section>`;
             }
             document.getElementById('content').innerHTML = html;
         }
 
         function renderCorCard(cor) {
-            return `
-                <div class="cor-card">
-                    <div class="cor-header">
-                        <div>
-                            <span class="cor-nome">${cor.nome}</span>
-                            <div class="cor-nome-forn">Fornecedor: ${cor.nome_fornecedor || cor.nome}</div>
-                        </div>
-                        <span class="cor-fornecedor">${cor.fornecedor}</span>
+            return `<div class="cor-card">
+                <div class="cor-header">
+                    <div>
+                        <span class="cor-nome">${cor.nome}</span>
+                        <div class="cor-nome-forn">Fornecedor: ${cor.nome_fornecedor || cor.nome}</div>
                     </div>
-                </div>`;
-        }</div>` : ''}
-                        </div>
-                        <span class="cor-fornecedor">${cor.fornecedor}</span>
-                    </div>
-                </div>`;
+                    <span class="cor-fornecedor">${cor.fornecedor}</span>
+                </div>
+            </div>`;
         }
 
         loadCores();
