@@ -155,14 +155,17 @@
         }
 
         function renderCorCard(cor) {
-            const nomeDiferente = cor.nome_fornecedor && 
-                cor.nome_fornecedor.toLowerCase() !== cor.nome.toLowerCase();
             return `
                 <div class="cor-card">
                     <div class="cor-header">
                         <div>
                             <span class="cor-nome">${cor.nome}</span>
-                            ${nomeDiferente ? `<div class="cor-nome-forn">Fornecedor: ${cor.nome_fornecedor}</div>` : ''}
+                            <div class="cor-nome-forn">Fornecedor: ${cor.nome_fornecedor || cor.nome}</div>
+                        </div>
+                        <span class="cor-fornecedor">${cor.fornecedor}</span>
+                    </div>
+                </div>`;
+        }</div>` : ''}
                         </div>
                         <span class="cor-fornecedor">${cor.fornecedor}</span>
                     </div>
