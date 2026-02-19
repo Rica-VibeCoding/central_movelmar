@@ -2,10 +2,278 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=cores.html">
-    <title>Central Movelmar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Movelmar | Conecta Representações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    </style>
 </head>
-<body>
-    <p>Redirecionando...</p>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4">
+            <div class="flex items-center gap-3">
+                <img src="logo_otimizado_github.png" alt="Conecta" class="h-12 w-12 rounded-xl bg-gray-100 p-1.5">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900">Central Movelmar</h1>
+                    <p class="text-sm text-gray-600">Hub do Representante</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-6">
+        
+        <!-- Introdução -->
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+            <p class="text-gray-700 leading-relaxed">
+                Central de recursos e ferramentas para gestão de lojistas Movelmar. 
+                Aqui você encontra links rápidos, skills disponíveis e status do projeto.
+            </p>
+        </div>
+
+        <!-- Links Rápidos -->
+        <section>
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-2xl">🔗</span> Links Rápidos
+            </h2>
+            <div class="grid gap-3">
+                
+                <!-- Cores -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900 mb-1">📦 Catálogo de Cores</h3>
+                            <p class="text-sm text-gray-600 mb-3">43 cores disponíveis (Sublime MDP + Unique MDF)</p>
+                            <code class="text-xs bg-gray-50 text-gray-700 px-2 py-1 rounded block break-all">
+                                https://rica-vibecoding.github.io/central_movelmar/cores.html
+                            </code>
+                        </div>
+                        <button onclick="copyLink('https://rica-vibecoding.github.io/central_movelmar/cores.html')" 
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 whitespace-nowrap">
+                            📋 Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Passo a Passo -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900 mb-1">📋 Passo a Passo</h3>
+                            <p class="text-sm text-gray-600 mb-3">Instruções completas para lojistas + contatos da fábrica</p>
+                            <code class="text-xs bg-gray-50 text-gray-700 px-2 py-1 rounded block break-all">
+                                https://rica-vibecoding.github.io/dashboard-conciliacao-ofra/passo-a-passo-movelmar.html
+                            </code>
+                        </div>
+                        <button onclick="copyLink('https://rica-vibecoding.github.io/dashboard-conciliacao-ofra/passo-a-passo-movelmar.html')" 
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 whitespace-nowrap">
+                            📋 Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contatos Fábrica -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900 mb-1">📞 Contatos da Fábrica</h3>
+                            <p class="text-sm text-gray-600 mb-3">Ademir, Leila, Alcir, Cassiano, José (link direto)</p>
+                            <code class="text-xs bg-gray-50 text-gray-700 px-2 py-1 rounded block break-all">
+                                https://rica-vibecoding.github.io/dashboard-conciliacao-ofra/passo-a-passo-movelmar.html#contatos
+                            </code>
+                        </div>
+                        <button onclick="copyLink('https://rica-vibecoding.github.io/dashboard-conciliacao-ofra/passo-a-passo-movelmar.html#contatos')" 
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 whitespace-nowrap">
+                            📋 Copiar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section>
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-2xl">🛠️</span> Skills Disponíveis
+            </h2>
+            
+            <!-- movelmar-assistencia -->
+            <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <h3 class="font-semibold text-gray-900">movelmar-assistencia</h3>
+                        <span class="inline-block mt-1 text-xs font-medium px-2.5 py-1 rounded-full bg-yellow-100 text-yellow-800">
+                            🚧 Em desenvolvimento
+                        </span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">
+                    Gestão completa de demandas e assistências técnicas dos lojistas
+                </p>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-2 text-sm text-gray-700">
+                        <span class="text-green-500 font-bold">✓</span>
+                        <span>Registrar demandas (texto + fotos no Drive)</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-sm text-gray-700">
+                        <span class="text-green-500 font-bold">✓</span>
+                        <span>Numeração automática (ASS-001, ASS-002...)</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-sm text-gray-700">
+                        <span class="text-green-500 font-bold">✓</span>
+                        <span>Relatório diário de pendentes</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-sm text-gray-700">
+                        <span class="text-green-500 font-bold">✓</span>
+                        <span>Email documentação com preview obrigatório</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-sm text-gray-700">
+                        <span class="text-green-500 font-bold">✓</span>
+                        <span>Controle de status (pendente → resolvido)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Atual -->
+        <section>
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-2xl">📊</span> Status Atual
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl font-bold text-blue-600" id="count-lojistas">11</div>
+                    <div class="text-sm text-gray-600 mt-1">Lojistas Ativos</div>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl font-bold text-green-600" id="count-cores">43</div>
+                    <div class="text-sm text-gray-600 mt-1">Cores no Catálogo</div>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl font-bold text-orange-600" id="count-demandas">—</div>
+                    <div class="text-sm text-gray-600 mt-1">Assistências Pendentes</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Recursos Adicionais -->
+        <section>
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-2xl">📁</span> Recursos
+            </h2>
+            <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+                <ul class="space-y-2.5">
+                    <li class="flex items-center gap-2 text-sm text-gray-700">
+                        <span class="text-blue-500">📂</span>
+                        <a href="https://drive.google.com" target="_blank" class="hover:underline">
+                            Google Drive (estrutura por lojista)
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm text-gray-700">
+                        <span class="text-green-500">🗄️</span>
+                        <a href="https://jjtfzteodsazbdkyubhr.supabase.co" target="_blank" class="hover:underline">
+                            Supabase (banco de dados)
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm text-gray-700">
+                        <span class="text-purple-500">💻</span>
+                        <a href="https://github.com/Rica-VibeCoding/central_movelmar" target="_blank" class="hover:underline">
+                            GitHub (código-fonte)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-4xl mx-auto px-4 py-8 text-center text-sm text-gray-500">
+        <p>Central Movelmar • Conecta Representações</p>
+        <p class="mt-1">Última atualização: <span id="last-update">2026-02-19</span></p>
+    </footer>
+
+    <!-- Toast de Confirmação -->
+    <div id="toast" class="fixed top-4 right-4 bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
+        <div class="flex items-center gap-2">
+            <span class="text-lg">✓</span>
+            <span class="font-medium">Link copiado!</span>
+        </div>
+    </div>
+
+    <script>
+        // Função para copiar link
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                showToast();
+            });
+        }
+
+        // Mostrar toast de confirmação
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-x-full');
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+            }, 2000);
+        }
+
+        // Carregar estatísticas do Supabase
+        const SUPABASE_URL = 'https://jjtfzteodsazbdkyubhr.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdGZ6dGVvZHNhemJka3l1YmhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxOTY0OTYsImV4cCI6MjA4MTc3MjQ5Nn0.8oUi04Xcv-ueGn2xLBU3ClGs9JYcd6L3i9QJ2ppGYNY';
+
+        async function loadStats() {
+            try {
+                // Contar cores ativas
+                const coresRes = await fetch(`${SUPABASE_URL}/rest/v1/mvmr_cores?select=count&ativa=eq.true`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'count=exact'
+                    }
+                });
+                const coresCount = coresRes.headers.get('content-range')?.split('/')[1] || '43';
+                document.getElementById('count-cores').textContent = coresCount;
+
+                // Contar lojistas ativos
+                const lojistasRes = await fetch(`${SUPABASE_URL}/rest/v1/cncta_empresas?select=count&tipo=eq.lojista&ativo=eq.true`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'count=exact'
+                    }
+                });
+                const lojistasCount = lojistasRes.headers.get('content-range')?.split('/')[1] || '11';
+                document.getElementById('count-lojistas').textContent = lojistasCount;
+
+                // Contar demandas pendentes (status != resolvido e != cancelado)
+                const demandasRes = await fetch(`${SUPABASE_URL}/rest/v1/cncta_demandas?select=count&status=neq.resolvido&status=neq.cancelado`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'count=exact'
+                    }
+                });
+                const demandasCount = demandasRes.headers.get('content-range')?.split('/')[1] || '0';
+                document.getElementById('count-demandas').textContent = demandasCount;
+
+            } catch (error) {
+                console.error('Erro ao carregar estatísticas:', error);
+            }
+        }
+
+        // Carregar ao abrir a página
+        loadStats();
+    </script>
 </body>
 </html>
