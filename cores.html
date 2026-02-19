@@ -7,203 +7,70 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f8f9fa;
-            color: #1a1a1a;
-            line-height: 1.5;
-            min-height: 100vh;
+            background: #f8f9fa; color: #1a1a1a; line-height: 1.5; min-height: 100vh;
         }
-        
         .header {
-            background: #fff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: #fff; border-bottom: 1px solid #e5e7eb;
+            padding: 1rem; position: sticky; top: 0; z-index: 100;
         }
-        
         .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+            max-width: 800px; margin: 0 auto;
+            display: flex; align-items: center; gap: 0.75rem;
         }
-        
-        .logo {
-            height: 32px;
-            width: auto;
-        }
-        
-        .header h1 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #374151;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-        
+        .logo { height: 32px; width: auto; }
+        .header h1 { font-size: 1.125rem; font-weight: 600; color: #374151; }
+        .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
         .update-info {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-            text-align: center;
+            font-size: 0.75rem; color: #6b7280;
+            margin-bottom: 1.5rem; text-align: center;
         }
-        
-        .section {
-            margin-bottom: 2rem;
-        }
-        
+        .section { margin-bottom: 2rem; }
         .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e5e7eb;
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e5e7eb;
         }
-        
-        .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #374151;
-        }
-        
+        .section-title { font-size: 1rem; font-weight: 600; color: #374151; }
         .badge {
-            font-size: 0.625rem;
-            font-weight: 500;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-size: 0.625rem; font-weight: 500; padding: 0.25rem 0.5rem;
+            border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;
         }
-        
-        .badge-mdp {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        
-        .badge-mdf {
-            background: #dcfce7;
-            color: #166534;
-        }
-        
-        .cores-grid {
-            display: grid;
-            gap: 0.5rem;
-        }
-        
+        .badge-mdp { background: #dbeafe; color: #1e40af; }
+        .badge-mdf { background: #dcfce7; color: #166534; }
+        .cores-grid { display: grid; gap: 0.5rem; }
         .cor-card {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 0.875rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: border-color 0.15s;
+            background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+            padding: 0.875rem 1rem; transition: border-color 0.15s;
         }
-        
-        .cor-card:hover {
-            border-color: #d1d5db;
+        .cor-card:hover { border-color: #d1d5db; }
+        .cor-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cor-nome { font-weight: 500; color: #1f2937; font-size: 0.9375rem; }
+        .cor-fornecedor { font-size: 0.8125rem; color: #6b7280; font-weight: 400; }
+        .cor-nome-forn {
+            font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem;
         }
-        
-        .cor-nome {
-            font-weight: 500;
-            color: #1f2937;
-            font-size: 0.9375rem;
-        }
-        
-        .cor-fornecedor {
-            font-size: 0.8125rem;
-            color: #6b7280;
-            font-weight: 400;
-        }
-        
-        .acabamento-brilho {
-            border-left: 3px solid #fbbf24;
-        }
-        
-        .acabamento-tag {
-            font-size: 0.625rem;
-            background: #fef3c7;
-            color: #92400e;
-            padding: 0.125rem 0.375rem;
-            border-radius: 4px;
-            margin-left: 0.5rem;
-            font-weight: 500;
-        }
-        
         .loading {
-            text-align: center;
-            padding: 3rem;
-            color: #6b7280;
+            text-align: center; padding: 3rem; color: #6b7280;
         }
-        
         .loading-spinner {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #e5e7eb;
-            border-top-color: #6b7280;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 1rem;
+            width: 24px; height: 24px; border: 2px solid #e5e7eb;
+            border-top-color: #6b7280; border-radius: 50%;
+            animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
         }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
+        @keyframes spin { to { transform: rotate(360deg); } }
         .footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.75rem;
-            color: #9ca3af;
+            text-align: center; padding: 2rem 1rem;
+            font-size: 0.75rem; color: #9ca3af;
         }
-        
-        .footer a {
-            color: #6b7280;
-            text-decoration: none;
-        }
-        
-        .count {
-            font-size: 0.75rem;
-            color: #9ca3af;
-            font-weight: 400;
-        }
-        
+        .footer a { color: #6b7280; text-decoration: none; }
+        .count { font-size: 0.75rem; color: #9ca3af; font-weight: 400; }
         @media (min-width: 640px) {
-            .container {
-                padding: 1.5rem;
-            }
-            
-            .header-content {
-                gap: 1rem;
-            }
-            
-            .header h1 {
-                font-size: 1.25rem;
-            }
-            
-            .section-title {
-                font-size: 1.125rem;
-            }
-            
-            .cor-card {
-                padding: 1rem 1.25rem;
-            }
+            .container { padding: 1.5rem; }
+            .header h1 { font-size: 1.25rem; }
+            .section-title { font-size: 1.125rem; }
+            .cor-card { padding: 1rem 1.25rem; }
         }
     </style>
 </head>
@@ -214,10 +81,8 @@
             <h1>Cores Movelmar</h1>
         </div>
     </header>
-    
     <main class="container">
         <p class="update-info">Atualizado em tempo real</p>
-        
         <div id="content">
             <div class="loading">
                 <div class="loading-spinner"></div>
@@ -225,11 +90,9 @@
             </div>
         </div>
     </main>
-    
     <footer class="footer">
         <a href="https://conectamoveis.net.br">Conecta Representações</a>
     </footer>
-
     <script>
         const SUPABASE_URL = 'https://jjtfzteodsazbdkyubhr.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdGZ6dGVvZHNhemJka3l1YmhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxOTY0OTYsImV4cCI6MjA4MTc3MjQ5Nn0.8oUi04Xcv-ueGn2xLBU3ClGs9JYcd6L3i9QJ2ppGYNY';
@@ -237,7 +100,7 @@
         async function loadCores() {
             try {
                 const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/mvmr_cores?select=nome,fornecedor,linha,tipo_material,acabamento&ativo=eq.true&order=linha,nome`,
+                    `${SUPABASE_URL}/rest/v1/mvmr_cores?select=nome,nome_fornecedor,fornecedor,linha,tipo_material&ativo=eq.true&order=linha,nome`,
                     {
                         headers: {
                             'apikey': SUPABASE_ANON_KEY,
@@ -245,24 +108,20 @@
                         }
                     }
                 );
-                
                 if (!response.ok) throw new Error('Erro ao carregar dados');
-                
                 const cores = await response.json();
                 renderCores(cores);
             } catch (error) {
                 document.getElementById('content').innerHTML = `
                     <div class="loading" style="color: #ef4444;">
                         Erro ao carregar cores. Tente novamente.
-                    </div>
-                `;
+                    </div>`;
             }
         }
 
         function renderCores(cores) {
             const sublime = cores.filter(c => c.linha === 'sublime');
             const unique = cores.filter(c => c.linha === 'unique');
-            
             let html = '';
             
             if (sublime.length > 0) {
@@ -276,8 +135,7 @@
                         <div class="cores-grid">
                             ${sublime.map(cor => renderCorCard(cor)).join('')}
                         </div>
-                    </section>
-                `;
+                    </section>`;
             }
             
             if (unique.length > 0) {
@@ -291,24 +149,24 @@
                         <div class="cores-grid">
                             ${unique.map(cor => renderCorCard(cor)).join('')}
                         </div>
-                    </section>
-                `;
+                    </section>`;
             }
-            
             document.getElementById('content').innerHTML = html;
         }
 
         function renderCorCard(cor) {
-            const isBrilho = cor.acabamento === 'brilho';
+            const nomeDiferente = cor.nome_fornecedor && 
+                cor.nome_fornecedor.toLowerCase() !== cor.nome.toLowerCase();
             return `
-                <div class="cor-card ${isBrilho ? 'acabamento-brilho' : ''}">
-                    <span class="cor-nome">
-                        ${cor.nome}
-                        ${isBrilho ? '<span class="acabamento-tag">Brilho</span>' : ''}
-                    </span>
-                    <span class="cor-fornecedor">${cor.fornecedor}</span>
-                </div>
-            `;
+                <div class="cor-card">
+                    <div class="cor-header">
+                        <div>
+                            <span class="cor-nome">${cor.nome}</span>
+                            ${nomeDiferente ? `<div class="cor-nome-forn">Fornecedor: ${cor.nome_fornecedor}</div>` : ''}
+                        </div>
+                        <span class="cor-fornecedor">${cor.fornecedor}</span>
+                    </div>
+                </div>`;
         }
 
         loadCores();
