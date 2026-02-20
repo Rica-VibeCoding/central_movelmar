@@ -498,10 +498,28 @@
                 <div class="space-y-2 mb-5">
                     <div class="bg-gray-50 rounded-lg p-3">
                         <div class="flex items-center gap-2">
-                            <span class="font-medium text-sm text-gray-900">movelmar-assistencia</span>
-                            <span class="text-xs px-1.5 py-0.5 rounded-full bg-yellow-100 text-yellow-700">🚧 Em dev</span>
+                            <span class="font-medium text-sm text-gray-900">email-lojistas</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">✅ Ativo</span>
                         </div>
-                        <p class="text-xs text-gray-500 mt-0.5">Registrar demandas, salvar fotos no Drive, montar email documentação</p>
+                        <p class="text-xs text-gray-500 mt-0.5">Email automático para lojistas com sistema de preview + aprovação via Telegram</p>
+                        <div class="mt-2 text-xs text-gray-500 space-y-0.5">
+                            <div>🔄 <strong>Fluxo:</strong> Preview → Email Rica → Botão ✅/❌ → Produção</div>
+                            <div>📋 <code class="bg-gray-200 px-1 rounded">/preview-email-lojistas-ze</code> — envia preview só pro Rica</div>
+                            <div>📧 <code class="bg-gray-200 px-1 rounded">/email-lojistas-ze</code> — disparo em produção (após aprovação)</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-sm text-gray-900">movelmar-assistencia</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">✅ Ativo</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-0.5">Registrar demandas (ASS-CNCTA-XXX), salvar fotos no Drive, email pra fábrica</p>
+                        <div class="mt-2 text-xs text-gray-500 space-y-0.5">
+                            <div>🔄 <strong>Fluxo:</strong> Preview + aprovação com botões no Telegram</div>
+                            <div>🗄️ Registra demanda no Supabase (ASS-CNCTA-XXX)</div>
+                            <div>📂 Salva fotos no Google Drive</div>
+                            <div>📧 Email para fábrica (Leila + Cassiano CC)</div>
+                        </div>
                     </div>
                     <div class="bg-gray-50 rounded-lg p-3">
                         <div class="flex items-center gap-2">
@@ -573,18 +591,20 @@
                             <h3 class="font-semibold text-gray-900 flex items-center gap-2">
                                 🚧 Fase 2: Automação
                             </h3>
-                            <span class="text-xs font-bold text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">~15%</span>
+                            <span class="text-xs font-bold text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">~40%</span>
                         </div>
                         <p class="text-xs text-gray-500 mb-2">Em andamento</p>
                         <div class="space-y-1 text-xs">
-                            <div class="text-yellow-700">● movelmar-assistencia (em dev)</div>
+                            <div class="text-green-600">✓ email-lojistas (preview + aprovação)</div>
+                            <div class="text-green-600">✓ movelmar-assistencia (preview + aprovação)</div>
+                            <div class="text-green-600">✓ Sistema de preview + aprovação para emails</div>
                             <div class="text-gray-400">○ movelmar-consulta</div>
                             <div class="text-gray-400">○ movelmar-demanda</div>
                             <div class="text-gray-400">○ n8n boas-vindas lojistas</div>
                             <div class="text-gray-400">○ Fotos das 43 cores</div>
                             <div class="text-gray-400">○ Completar 6 cores novas</div>
                         </div>
-                        <div class="mt-2 h-1.5 bg-yellow-200 rounded-full"><div class="h-full bg-yellow-500 rounded-full" style="width:15%"></div></div>
+                        <div class="mt-2 h-1.5 bg-yellow-200 rounded-full"><div class="h-full bg-yellow-500 rounded-full" style="width:40%"></div></div>
                     </div>
 
                     <!-- Fase 3 -->
