@@ -929,6 +929,15 @@
   }
   .di-field-value.muted { color: var(--text-2); font-style: italic; font-size: 16px; }
 
+  .di-notes {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-1);
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
   .app-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1147,12 +1156,15 @@ const SUPABASE_URL = "https://jjtfzteodsazbdkyubhr.supabase.co/rest/v1/mvmr_core
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdGZ6dGVvZHNhemJka3l1YmhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxOTY0OTYsImV4cCI6MjA4MTc3MjQ5Nn0.8oUi04Xcv-ueGn2xLBU3ClGs9JYcd6L3i9QJ2ppGYNY";
 
 const APPS = [
-  { key: "caixa_15",   label: "Caixa 15" },
-  { key: "caixa_18",   label: "Caixa 18" },
-  { key: "frontal_15", label: "Frontal 15" },
-  { key: "frontal_18", label: "Frontal 18" },
-  { key: "shaker",     label: "Shaker" },
-  { key: "painel_15",  label: "Painel 15" },
+  { key: "caixa_15",     label: "Caixa 15" },
+  { key: "caixa_18",     label: "Caixa 18" },
+  { key: "frontal_15",   label: "Frontal 15" },
+  { key: "frontal_18",   label: "Frontal 18" },
+  { key: "painel_15",    label: "Painel 15" },
+  { key: "painel_18",    label: "Painel 18" },
+  { key: "painel_25",    label: "Painel 25" },
+  { key: "tamburato_42", label: "Tamburato 42" },
+  { key: "shaker",       label: "Shaker" },
 ];
 
 /* state */
@@ -1391,6 +1403,13 @@ function collectionLabel(d) {
   return d.tipo_material || null;
 }
 
+function acabamentoLabel(d) {
+  const a = (d.acabamento || "").toLowerCase();
+  if (a === "brilho") return "Brilho";
+  if (a === "padrao") return "Fosco";
+  return null;
+}
+
 function render() {
   const list = getFiltered();
   countShown.textContent = list.length;
@@ -1462,7 +1481,7 @@ function render() {
     if (d.acabamento && d.acabamento !== "padrao") {
       const t = document.createElement("span");
       t.className = "tag";
-      t.textContent = d.acabamento;
+      t.textContent = acabamentoLabel(d) || d.acabamento;
       tags.appendChild(t);
     }
     body.appendChild(tags);
@@ -1530,7 +1549,7 @@ function openDrawer(d) {
     ["Coleção", collectionLabel(d) || "—"],
     ["Material", d.tipo_material || "—"],
     ["Textura", d.textura || "—"],
-    ["Acabamento", d.acabamento || "—"],
+    ["Acabamento", acabamentoLabel(d) || "—"],
   ];
   fields.forEach(([k, v]) => {
     const cell = document.createElement("div");
@@ -1579,6 +1598,21 @@ function openDrawer(d) {
   });
   appsSec.appendChild(ag);
   info.appendChild(appsSec);
+
+  // Observações (notas)
+  if (d.notas && d.notas.trim()) {
+    const notesSec = document.createElement("div");
+    notesSec.className = "di-section";
+    const notesLabel = document.createElement("div");
+    notesLabel.className = "di-section-label";
+    notesLabel.textContent = "Observações";
+    notesSec.appendChild(notesLabel);
+    const p = document.createElement("p");
+    p.className = "di-notes";
+    p.textContent = d.notas;
+    notesSec.appendChild(p);
+    info.appendChild(notesSec);
+  }
 
   drawerContent.appendChild(info);
 
