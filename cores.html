@@ -966,30 +966,25 @@ function renderSkeleton(n = 8) {
 }
 
 /* ───────────── Fetch ───────────── */
-async function fetchWithTimeout(url, opts, ms = 12000) {
+async function tryFetch(url, ms = 12000) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), ms);
   try {
-    return await fetch(url, { ...opts, signal: ctrl.signal });
+    const r = await fetch(url, {
+      signal: ctrl.signal,
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        Accept: "application/json",
+      },
+    });
+    const text = await r.text();
+    if (!r.ok) throw new Error(`HTTP ${r.status} — ${text.slice(0, 200)}`);
+    try { return JSON.parse(text); }
+    catch { throw new Error("Resposta inválida do servidor"); }
   } finally {
     clearTimeout(t);
   }
-}
-
-async function tryFetch(url) {
-  const r = await fetchWithTimeout(url, {
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
-      Accept: "application/json",
-    },
-  });
-  const text = await r.text();
-  if (!r.ok) {
-    throw new Error(`HTTP ${r.status} — ${text.slice(0, 200)}`);
-  }
-  try { return JSON.parse(text); }
-  catch { throw new Error("Resposta inválida do servidor"); }
 }
 
 async function fetchData() {
@@ -1031,7 +1026,12 @@ function onDataLoaded() {
     const b = document.createElement("button");
     b.className = "chip";
     b.dataset.supplier = s;
-    b.innerHTML = `<span>${s}</span><span class="count">${c.toString().padStart(2,"0")}</span>`;
+    const labelEl = document.createElement("span");
+    labelEl.textContent = s;
+    const countEl = document.createElement("span");
+    countEl.className = "count";
+    countEl.textContent = c.toString().padStart(2, "0");
+    b.append(labelEl, countEl);
     b.addEventListener("click", () => {
       if (state.suppliers.has(s)) state.suppliers.delete(s);
       else state.suppliers.add(s);
@@ -1046,7 +1046,9 @@ function onDataLoaded() {
   APPS.forEach(a => {
     const b = document.createElement("button");
     b.className = "chip";
-    b.innerHTML = `<span>${a.label}</span>`;
+    const labelEl = document.createElement("span");
+    labelEl.textContent = a.label;
+    b.appendChild(labelEl);
     b.addEventListener("click", () => {
       if (state.apps.has(a.key)) state.apps.delete(a.key);
       else state.apps.add(a.key);
@@ -1180,10 +1182,16 @@ function render() {
     sup.className = "card-supplier";
     const fornecedor = d.fornecedor || "—";
     const nfornec = d.nome_fornecedor && d.nome_fornecedor.trim() ? d.nome_fornecedor : null;
+    const fornEl = document.createElement("span");
+    fornEl.textContent = fornecedor;
+    sup.appendChild(fornEl);
     if (nfornec) {
-      sup.innerHTML = `<span>${fornecedor}</span><span class="sep"></span><span class="alt">${nfornec}</span>`;
-    } else {
-      sup.textContent = fornecedor;
+      const sep = document.createElement("span");
+      sep.className = "sep";
+      const altEl = document.createElement("span");
+      altEl.className = "alt";
+      altEl.textContent = nfornec;
+      sup.append(sep, altEl);
     }
     body.appendChild(sup);
 
@@ -1272,7 +1280,13 @@ function openDrawer(d) {
   ];
   fields.forEach(([k, v]) => {
     const cell = document.createElement("div");
-    cell.innerHTML = `<div class="di-field-label">${k}</div><div class="di-field-value">${v}</div>`;
+    const lab = document.createElement("div");
+    lab.className = "di-field-label";
+    lab.textContent = k;
+    const val = document.createElement("div");
+    val.className = "di-field-value";
+    val.textContent = v;
+    cell.append(lab, val);
     grid2.appendChild(cell);
   });
   spec.appendChild(grid2);
@@ -1328,7 +1342,7 @@ function closeDrawer() {
 $("drawer-close").addEventListener("click", closeDrawer);
 drawerBackdrop.addEventListener("click", closeDrawer);
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeDrawer();
+  if (e.key === "Escape" && drawer.classList.contains("is-open")) closeDrawer();
 });
 
 /* ───────────── Filter wiring ───────────── */
@@ -1369,13 +1383,15 @@ resetBtn.addEventListener("click", resetAll);
 $("empty-reset").addEventListener("click", resetAll);
 $("retry-btn").addEventListener("click", fetchData);
 
-/* sticky condensed on scroll */
-let lastY = 0;
+/* sticky condensed on scroll (rAF-throttled) */
+let scrollTicking = false;
 window.addEventListener("scroll", () => {
-  const y = window.scrollY;
-  if (y > 220) filtersBar.classList.add("is-condensed");
-  else filtersBar.classList.remove("is-condensed");
-  lastY = y;
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    filtersBar.classList.toggle("is-condensed", window.scrollY > 220);
+    scrollTicking = false;
+  });
 }, { passive: true });
 
 /* go */
