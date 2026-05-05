@@ -97,8 +97,6 @@
     letter-spacing: -0.005em;
     color: #E2C9A4;
     line-height: 1;
-    /* optical alignment with serif Movelmar baseline */
-    transform: translateY(1px);
   }
   .brand-divider {
     width: 1px;
@@ -114,7 +112,7 @@
     color: var(--text-0);
     line-height: 1;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 12px;
   }
   .brand .dot {
@@ -131,8 +129,11 @@
     font-size: 10.5px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    /* sit on lowercase x-height of serif neighbour */
-    transform: translateY(-2px);
+    white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .brand .dot,
+    .brand .meta { display: none; }
   }
   .topnav {
     display: flex;
