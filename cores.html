@@ -1507,6 +1507,7 @@ function openDrawer(d) {
 
   // image side
   const imgNode = makeImageNode(d, `Amostra de ${d.nome}`);
+  imgNode.classList.replace("card-image", "drawer-image");
   // promote skeleton on the drawer image while loading
   imgNode.classList.add("is-loading");
   const imgEl = imgNode.querySelector("img");
