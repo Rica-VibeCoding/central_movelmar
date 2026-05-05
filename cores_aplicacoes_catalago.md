@@ -142,7 +142,7 @@ quaisquer observações relevantes pra UI.
 | Painéis 15/18/25 | `painel_15`, `painel_18`, `painel_25` |
 | Painéis 42 (tamburato) | `tamburato_42` |
 | Shaker (frontal) | `shaker` |
-| Observações / regras (incl. coringa) | `notas` *(renderizado na seção "Observações" da ficha técnica em `cores.html`)* |
+| Observações / regras (incl. coringa) | `notas` *(renderizado na seção "Nota" da ficha técnica em `cores.html`)* |
 | Cor de estoque ativa? | `ativo` (`true`/`false`) |
 | Foto | `foto_url` |
 | Textura visual | `textura_url` |
@@ -176,4 +176,4 @@ Na maioria das cores, `nome` e `nome_fornecedor` coincidem.
 
 - 2026-05-05: filtro e ficha técnica passaram a expor todas as 9 aplicações reais do banco (`caixa_15/18`, `frontal_15/18`, `painel_15/18/25`, `tamburato_42`, `shaker`). Antes só listavam 6.
 - 2026-05-05: `acabamento` na ficha técnica passou a ser traduzido — `padrao` → "Fosco", `brilho` → "Brilho". Badge na lista só aparece quando o acabamento é diferente de `padrao` (atualmente só Branco Diamante).
-- 2026-05-05: nova seção "Observações" na ficha técnica, lendo do campo `notas`. Renderiza só se a cor tiver conteúdo no campo.
+- 2026-05-05: nova seção "Nota" na ficha técnica, lendo do campo `notas`. Renderiza só se a cor tiver conteúdo no campo.
