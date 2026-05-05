@@ -158,7 +158,11 @@
     align-items: center;
   }
   @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; padding: 36px 0 32px; }
+    .hero { grid-template-columns: 1fr; padding: 28px 0 24px; gap: 20px; }
+  }
+  @media (max-width: 640px) {
+    .hero-title { font-size: clamp(34px, 9vw, 48px); }
+    .hero-eyebrow { margin-bottom: 10px; }
   }
   .hero-eyebrow {
     font-size: 10px;
@@ -225,7 +229,13 @@
     color: var(--text-0);
   }
   @media (max-width: 768px) {
-    .hero-meta { justify-content: flex-start; gap: 32px; }
+    .hero-meta { justify-content: flex-start; gap: 28px; }
+  }
+  @media (max-width: 640px) {
+    .hero-meta { gap: 24px; }
+    .hero-meta-block { text-align: left; gap: 4px; }
+    .hero-meta-label { font-size: 10px; letter-spacing: 0.2em; margin-bottom: 2px; }
+    .hero-meta-value { font-size: 17px; }
   }
 
   /* ───────────── Filter bar (sticky) ───────────── */
@@ -385,6 +395,153 @@
     .seg-and-counter { justify-content: space-between; flex-wrap: wrap; gap: 16px; }
   }
 
+  /* ───────── Mobile filter sheet (≤768) ───────── */
+  .mobile-filter-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+  }
+  .mobile-filter-bar .search { flex: 1; min-width: 0; }
+  .mfilter-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--text-1);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    background: var(--bg-1);
+    transition: all var(--t);
+  }
+  .mfilter-btn:hover, .mfilter-btn.has-active { color: var(--copper); border-color: var(--copper-line); background: var(--copper-soft); }
+  .mfilter-btn .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px; height: 18px;
+    padding: 0 5px;
+    background: var(--copper);
+    color: #14100A;
+    border-radius: 999px;
+    font-size: 10px;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+  .mfilter-btn:not(.has-active) .badge { display: none; }
+
+  .filter-sheet-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(6,6,8,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t);
+    z-index: 80;
+  }
+  .filter-sheet-backdrop.is-open { opacity: 1; pointer-events: auto; }
+  .filter-sheet {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    max-height: 82vh;
+    background: var(--bg-1);
+    border-top: 1px solid var(--line);
+    border-radius: 18px 18px 0 0;
+    transform: translateY(100%);
+    transition: transform 380ms cubic-bezier(.2,.6,.2,1);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .filter-sheet.is-open { transform: translateY(0); }
+  .sheet-handle {
+    display: flex; justify-content: center;
+    padding: 10px 0 4px;
+    cursor: grab;
+    touch-action: none;
+  }
+  .sheet-handle::before {
+    content: "";
+    width: 38px; height: 4px;
+    border-radius: 999px;
+    background: var(--line-strong);
+  }
+  .sheet-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 22px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sheet-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--text-1);
+  }
+  .sheet-close {
+    color: var(--text-2);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 4px 8px;
+  }
+  .sheet-close:hover { color: var(--copper); }
+  .sheet-body {
+    overflow-y: auto;
+    padding: 22px 22px 24px;
+    display: flex; flex-direction: column; gap: 22px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sheet-section .label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    color: var(--text-3);
+    margin-bottom: 12px;
+  }
+  .sheet-section .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sheet-foot {
+    display: flex; gap: 10px;
+    padding: 14px 22px calc(14px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    background: var(--bg-1);
+  }
+  .sheet-foot button {
+    flex: 1;
+    height: 46px;
+    border-radius: 999px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    transition: all var(--t);
+  }
+  .sheet-foot .sheet-clear {
+    border: 1px solid var(--line-strong);
+    color: var(--text-1);
+    background: transparent;
+  }
+  .sheet-foot .sheet-clear:hover { color: var(--copper); border-color: var(--copper-line); }
+  .sheet-foot .sheet-apply {
+    background: var(--copper);
+    color: #14100A;
+    font-weight: 600;
+  }
+  .sheet-foot .sheet-apply:hover { filter: brightness(1.08); }
+
+  @media (max-width: 768px) {
+    .filters-inner.desktop-filters { display: none; }
+    .mobile-filter-bar { display: flex; }
+  }
+  @media (min-width: 769px) {
+    .mobile-filter-bar { display: none !important; }
+    .filter-sheet, .filter-sheet-backdrop { display: none !important; }
+  }
+
   /* ───────────── Grid ───────────── */
   .grid-section {
     padding: 56px 0 96px;
@@ -396,7 +553,8 @@
   }
   @media (max-width: 1280px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 48px 20px; } }
-  @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; gap: 40px; } }
+  @media (max-width: 640px)  { .grid { grid-template-columns: repeat(2, 1fr); gap: 32px 14px; } }
+  @media (max-width: 380px)  { .grid { grid-template-columns: 1fr; gap: 32px; } }
 
   /* Card */
   .card {
@@ -621,9 +779,20 @@
       height: 92vh;
       border-left: 0;
       border-top: 1px solid var(--line);
+      border-radius: 18px 18px 0 0;
       transform: translateY(100%);
     }
     .drawer.is-open { transform: translateY(0); }
+    .drawer::before {
+      content: "";
+      position: absolute;
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 38px; height: 4px;
+      border-radius: 999px;
+      background: var(--line-strong);
+      z-index: 6;
+    }
   }
 
   .drawer-close {
@@ -640,6 +809,14 @@
     transition: all var(--t);
   }
   .drawer-close:hover { color: var(--copper); border-color: var(--copper-line); }
+  @media (max-width: 768px) {
+    .drawer-close {
+      top: 18px; right: 18px;
+      width: 44px; height: 44px;
+      background: rgba(20,20,26,0.85);
+    }
+    .drawer-close svg { width: 16px; height: 16px; }
+  }
 
   .drawer-scroll {
     flex: 1;
@@ -668,8 +845,22 @@
     font-style: italic;
   }
   @media (max-width: 768px) {
-    .drawer-image { aspect-ratio: 4/3; }
+    .drawer-image {
+      aspect-ratio: auto;
+      height: 42vh;
+      max-height: 360px;
+    }
   }
+  /* shimmer placeholder for drawer image while loading */
+  .drawer-image.is-loading::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%);
+    background-size: 200% 100%;
+    animation: shimmer 2.4s ease-in-out infinite;
+    z-index: 0;
+  }
+  .drawer-image img, .drawer-image .swatch { z-index: 1; }
 
   .drawer-info {
     padding: 56px 48px 56px;
@@ -836,7 +1027,24 @@
 
 <div class="filters" id="filters">
   <div class="shell">
-    <div class="filters-inner">
+    <!-- Mobile: compact bar with search + filters button -->
+    <div class="mobile-filter-bar" id="mfilter-bar">
+      <div class="search" id="search-wrap-m">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input id="search-m" type="text" placeholder="Buscar…" aria-label="Buscar referências" />
+      </div>
+      <button class="mfilter-btn" id="mfilter-open" aria-label="Abrir filtros">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M3 6h18M6 12h12M10 18h4"/>
+        </svg>
+        <span>Filtros</span>
+        <span class="badge" id="mfilter-badge">0</span>
+      </button>
+    </div>
+
+    <div class="filters-inner desktop-filters">
       <div class="search" id="search-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
@@ -887,6 +1095,38 @@
     </div>
   </footer>
 </div>
+
+<!-- Mobile filter sheet -->
+<div class="filter-sheet-backdrop" id="sheet-backdrop"></div>
+<aside class="filter-sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Filtros">
+  <div class="sheet-handle" id="sheet-handle"></div>
+  <div class="sheet-head">
+    <span class="sheet-title">Refinar</span>
+    <button class="sheet-close" id="sheet-close">Fechar</button>
+  </div>
+  <div class="sheet-body">
+    <div class="sheet-section">
+      <span class="label">Coleção</span>
+      <div class="seg" role="tablist" aria-label="Coleção" id="seg-mobile" style="display:flex;">
+        <button data-collection="all" class="is-active">Todas</button>
+        <button data-collection="sublime">Sublime</button>
+        <button data-collection="unique">Unique</button>
+      </div>
+    </div>
+    <div class="sheet-section">
+      <span class="label">Fornecedor</span>
+      <div class="chips" id="suppliers-m"></div>
+    </div>
+    <div class="sheet-section">
+      <span class="label">Aplicação</span>
+      <div class="chips" id="apps-m"></div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="sheet-clear" id="sheet-clear">Limpar</button>
+    <button class="sheet-apply" id="sheet-apply">Ver <span id="sheet-apply-count">—</span> resultados</button>
+  </div>
+</aside>
 
 <!-- Drawer -->
 <div class="drawer-backdrop" id="drawer-backdrop"></div>
@@ -1241,7 +1481,20 @@ function openDrawer(d) {
   drawerContent.innerHTML = "";
 
   // image side
-  drawerContent.appendChild(makeImageNode(d, `Amostra de ${d.nome}`));
+  const imgNode = makeImageNode(d, `Amostra de ${d.nome}`);
+  // promote skeleton on the drawer image while loading
+  imgNode.classList.add("is-loading");
+  const imgEl = imgNode.querySelector("img");
+  if (imgEl) {
+    if (imgEl.complete && imgEl.naturalWidth > 0) imgNode.classList.remove("is-loading");
+    else {
+      imgEl.addEventListener("load", () => imgNode.classList.remove("is-loading"), { once: true });
+      imgEl.addEventListener("error", () => imgNode.classList.remove("is-loading"), { once: true });
+    }
+  } else {
+    imgNode.classList.remove("is-loading");
+  }
+  drawerContent.appendChild(imgNode);
 
   // info side
   const info = document.createElement("div");
@@ -1393,6 +1646,226 @@ window.addEventListener("scroll", () => {
     scrollTicking = false;
   });
 }, { passive: true });
+
+/* ───────── Mobile filter sheet ───────── */
+const sheet = $("sheet");
+const sheetBackdrop = $("sheet-backdrop");
+const suppliersM = $("suppliers-m");
+const appsM = $("apps-m");
+const searchM = $("search-m");
+const searchWrapM = $("search-wrap-m");
+const mfilterBtn = $("mfilter-open");
+const mfilterBadge = $("mfilter-badge");
+const sheetApplyCount = $("sheet-apply-count");
+
+/* sync the two search inputs */
+searchM.addEventListener("input", (e) => {
+  state.q = e.target.value;
+  searchEl.value = state.q;
+  searchWrap.classList.toggle("has-value", state.q.length > 0);
+  searchWrapM.classList.toggle("has-value", state.q.length > 0);
+  render();
+});
+
+/* mirror desktop search into mobile too */
+searchEl.addEventListener("input", () => { searchM.value = searchEl.value; });
+
+/* mobile seg buttons */
+document.querySelectorAll('#seg-mobile [data-collection]').forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("[data-collection]").forEach(x => x.classList.remove("is-active"));
+    document.querySelectorAll(`[data-collection="${b.dataset.collection}"]`).forEach(x => x.classList.add("is-active"));
+    state.collection = b.dataset.collection;
+    render();
+  });
+});
+
+/* build mobile chips that mirror desktop ones */
+function buildMobileChips() {
+  // suppliers
+  suppliersM.innerHTML = "";
+  const supSet = [...new Set(state.data.map(d => d.fornecedor).filter(Boolean))].sort();
+  supSet.forEach(s => {
+    const c = state.data.filter(d => d.fornecedor === s).length;
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.dataset.supplier = s;
+    const labelEl = document.createElement("span");
+    labelEl.textContent = s;
+    const countEl = document.createElement("span");
+    countEl.className = "count";
+    countEl.textContent = c.toString().padStart(2, "0");
+    b.append(labelEl, countEl);
+    if (state.suppliers.has(s)) b.classList.add("is-active");
+    b.addEventListener("click", () => {
+      if (state.suppliers.has(s)) state.suppliers.delete(s);
+      else state.suppliers.add(s);
+      b.classList.toggle("is-active");
+      // also toggle the desktop chip to keep state visual
+      document.querySelectorAll(`#suppliers .chip[data-supplier="${s}"]`).forEach(x => x.classList.toggle("is-active"));
+      render();
+    });
+    suppliersM.appendChild(b);
+  });
+  // apps
+  appsM.innerHTML = "";
+  APPS.forEach(a => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.dataset.app = a.key;
+    b.innerHTML = `<span>${a.label}</span>`;
+    if (state.apps.has(a.key)) b.classList.add("is-active");
+    b.addEventListener("click", () => {
+      if (state.apps.has(a.key)) state.apps.delete(a.key);
+      else state.apps.add(a.key);
+      b.classList.toggle("is-active");
+      render();
+    });
+    appsM.appendChild(b);
+  });
+}
+
+/* hook into onDataLoaded */
+const _origOnDataLoaded = onDataLoaded;
+window.onDataLoaded = function() {
+  _origOnDataLoaded.apply(this, arguments);
+  buildMobileChips();
+  updateFilterBadge();
+};
+
+/* count active refinements (excluding text search) */
+function activeFilterCount() {
+  return (state.collection !== "all" ? 1 : 0) + state.suppliers.size + state.apps.size;
+}
+function updateFilterBadge() {
+  const n = activeFilterCount();
+  mfilterBtn.classList.toggle("has-active", n > 0);
+  mfilterBadge.textContent = n;
+  if (sheetApplyCount) sheetApplyCount.textContent = countShown.textContent;
+}
+
+/* extend render to update badge */
+const _origRender = render;
+render = function() {
+  _origRender.apply(this, arguments);
+  updateFilterBadge();
+};
+
+/* open / close sheet */
+function openSheet() {
+  // sync mobile chip active states with current state (in case user changed via desktop)
+  suppliersM.querySelectorAll(".chip").forEach(c => {
+    c.classList.toggle("is-active", state.suppliers.has(c.dataset.supplier));
+  });
+  appsM.querySelectorAll(".chip").forEach(c => {
+    c.classList.toggle("is-active", state.apps.has(c.dataset.app));
+  });
+  document.querySelectorAll('#seg-mobile [data-collection]').forEach(b => {
+    b.classList.toggle("is-active", b.dataset.collection === state.collection);
+  });
+  sheet.classList.add("is-open");
+  sheetBackdrop.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+}
+function closeSheet() {
+  sheet.classList.remove("is-open");
+  sheetBackdrop.classList.remove("is-open");
+  document.body.style.overflow = "";
+}
+mfilterBtn.addEventListener("click", openSheet);
+$("sheet-close").addEventListener("click", closeSheet);
+sheetBackdrop.addEventListener("click", closeSheet);
+$("sheet-apply").addEventListener("click", closeSheet);
+$("sheet-clear").addEventListener("click", () => {
+  resetAll();
+  // also clear mobile chip visuals
+  suppliersM.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
+  appsM.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
+});
+
+/* drag-to-close: sheet handle */
+function enableDragClose(panel, handle, onClose) {
+  let startY = 0, dragging = false, dy = 0;
+  const start = (e) => {
+    const t = e.touches ? e.touches[0] : e;
+    startY = t.clientY;
+    dragging = true;
+    dy = 0;
+    panel.style.transition = "none";
+  };
+  const move = (e) => {
+    if (!dragging) return;
+    const t = e.touches ? e.touches[0] : e;
+    dy = Math.max(0, t.clientY - startY);
+    panel.style.transform = `translateY(${dy}px)`;
+  };
+  const end = () => {
+    if (!dragging) return;
+    dragging = false;
+    panel.style.transition = "";
+    if (dy > 110) {
+      panel.style.transform = "";
+      onClose();
+    } else {
+      panel.style.transform = "";
+    }
+  };
+  handle.addEventListener("touchstart", start, { passive: true });
+  handle.addEventListener("touchmove", move, { passive: true });
+  handle.addEventListener("touchend", end);
+  handle.addEventListener("mousedown", (e) => {
+    start(e);
+    const mm = (ev) => move(ev);
+    const mu = () => { end(); window.removeEventListener("mousemove", mm); window.removeEventListener("mouseup", mu); };
+    window.addEventListener("mousemove", mm);
+    window.addEventListener("mouseup", mu);
+  });
+}
+enableDragClose(sheet, $("sheet-handle"), closeSheet);
+
+/* drag-to-close: drawer (mobile only) */
+let drawerDrag = { y: 0, on: false, dy: 0 };
+function drawerStart(e) {
+  if (window.innerWidth > 768) return;
+  const t = e.touches ? e.touches[0] : e;
+  // only start drag if near the top handle area (first 40px)
+  const rect = drawer.getBoundingClientRect();
+  if (t.clientY - rect.top > 40) return;
+  drawerDrag.y = t.clientY;
+  drawerDrag.on = true;
+  drawerDrag.dy = 0;
+  drawer.style.transition = "none";
+}
+function drawerMove(e) {
+  if (!drawerDrag.on) return;
+  const t = e.touches ? e.touches[0] : e;
+  drawerDrag.dy = Math.max(0, t.clientY - drawerDrag.y);
+  drawer.style.transform = `translateY(${drawerDrag.dy}px)`;
+}
+function drawerEnd() {
+  if (!drawerDrag.on) return;
+  drawerDrag.on = false;
+  drawer.style.transition = "";
+  if (drawerDrag.dy > 120) {
+    drawer.style.transform = "";
+    closeDrawer();
+  } else {
+    drawer.style.transform = "";
+  }
+}
+drawer.addEventListener("touchstart", drawerStart, { passive: true });
+drawer.addEventListener("touchmove", drawerMove, { passive: true });
+drawer.addEventListener("touchend", drawerEnd);
+
+/* close sheet/drawer on Esc */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && sheet.classList.contains("is-open")) closeSheet();
+});
+
+/* close sheet automatically if viewport grows past mobile breakpoint */
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768 && sheet.classList.contains("is-open")) closeSheet();
+});
 
 /* go */
 fetchData();
