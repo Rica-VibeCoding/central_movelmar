@@ -1,157 +1,1385 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cores Movelmar | Conecta Representações</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #e9ecef; color: #1a1a1a; line-height: 1.5; min-height: 100vh;
-        }
-        .header {
-            background: #fff; border-bottom: 1px solid #e5e7eb;
-            padding: 1rem; position: sticky; top: 0; z-index: 100;
-        }
-        .header-content {
-            max-width: 800px; margin: 0 auto;
-            display: flex; align-items: center; gap: 0.75rem;
-        }
-        .logo { height: 40px; width: auto; border-radius: 50%; }
-        .header h1 { font-size: 1.125rem; font-weight: 600; color: #374151; }
-        .container { max-width: 800px; margin: 0 auto; padding: 1rem; }
-        .update-info {
-            font-size: 0.75rem; color: #6b7280;
-            margin-bottom: 1.5rem; text-align: center;
-        }
-        .section { margin-bottom: 2rem; }
-        .section-header {
-            display: flex; align-items: center; gap: 0.5rem;
-            margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #d1d5db;
-        }
-        .section-title { font-size: 1rem; font-weight: 600; color: #374151; }
-        .badge {
-            font-size: 0.625rem; font-weight: 500; padding: 0.25rem 0.5rem;
-            border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;
-        }
-        .badge-mdp { background: #dbeafe; color: #1e40af; }
-        .badge-mdf { background: #dcfce7; color: #166534; }
-        .cores-grid { display: grid; gap: 0.5rem; }
-        .cor-card {
-            background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
-            padding: 0.875rem 1rem; transition: border-color 0.15s;
-        }
-        .cor-card:hover { border-color: #d1d5db; }
-        .cor-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .cor-nome { font-weight: 500; color: #1f2937; font-size: 0.9375rem; }
-        .cor-fornecedor { font-size: 0.8125rem; color: #6b7280; font-weight: 400; }
-        .cor-nome-forn { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; }
-        .loading { text-align: center; padding: 3rem; color: #6b7280; }
-        .loading-spinner {
-            width: 24px; height: 24px; border: 2px solid #e5e7eb;
-            border-top-color: #6b7280; border-radius: 50%;
-            animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .footer { text-align: center; padding: 2rem 1rem; font-size: 0.75rem; color: #9ca3af; }
-        .footer a { color: #6b7280; text-decoration: none; }
-        .count { font-size: 0.75rem; color: #9ca3af; font-weight: 400; }
-        .textura-badge {
-            display: inline-block; font-size: 0.625rem; font-weight: 500;
-            padding: 0.125rem 0.375rem; margin-left: 0.375rem;
-            background: #f3f4f6; color: #6b7280; border-radius: 4px;
-            text-transform: uppercase; letter-spacing: 0.05em;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cores & Materiais · Movelmar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Nunito:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --bg-0: #0A0A0B;
+    --bg-1: #101015;
+    --bg-2: #14141A;
+    --bg-3: #1C1C22;
+    --bg-4: #2A2A30;
+    --line: rgba(255,255,255,0.07);
+    --line-strong: rgba(255,255,255,0.14);
+    --text-0: #EDECE8;
+    --text-1: #B8B6AE;
+    --text-2: #7A7872;
+    --text-3: #56544E;
+    --copper: #B79268;
+    --copper-soft: rgba(183,146,104,0.18);
+    --copper-line: rgba(183,146,104,0.45);
+    --serif: "Cormorant Garamond", "Hoefler Text", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --t: 300ms cubic-bezier(.2,.6,.2,1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { background: var(--bg-0); }
+  body {
+    font-family: var(--sans);
+    color: var(--text-0);
+    background: var(--bg-0);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    line-height: 1.55;
+    letter-spacing: 0.005em;
+  }
+
+  ::selection { background: var(--copper-soft); color: var(--text-0); }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+  input { font-family: inherit; color: inherit; }
+
+  :focus-visible {
+    outline: 1.5px solid var(--copper);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ───────────── Layout shell ───────────── */
+  .shell {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 640px) {
+    .shell { padding: 0 20px; }
+  }
+
+  /* ───────────── Top bar ───────────── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 0 20px;
+    border-bottom: 1px solid var(--line);
+    gap: 24px;
+  }
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    min-width: 0;
+  }
+  .brand-primary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-primary img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    display: block;
+  }
+  .brand-primary .name {
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.005em;
+    color: #E2C9A4;
+    line-height: 1;
+    /* optical alignment with serif Movelmar baseline */
+    transform: translateY(1px);
+  }
+  .brand-divider {
+    width: 1px;
+    height: 26px;
+    background: var(--line-strong);
+    align-self: center;
+  }
+  .brand {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: var(--text-0);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .brand .dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    background: var(--copper);
+    border-radius: 50%;
+    align-self: center;
+    flex-shrink: 0;
+  }
+  .brand .meta {
+    color: var(--text-2);
+    font-family: var(--sans);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    /* sit on lowercase x-height of serif neighbour */
+    transform: translateY(-2px);
+  }
+  .topnav {
+    display: flex;
+    gap: 28px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-2);
+  }
+  .topnav a:hover { color: var(--copper); }
+  @media (max-width: 768px) {
+    .topnav { display: none; }
+  }
+
+  /* ───────────── Hero ───────────── */
+  .hero {
+    padding: 56px 0 48px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px 64px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 36px 0 32px; }
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--copper);
+    display: inline-block;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    margin: 0;
+    color: var(--text-0);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--text-1);
+    font-weight: 400;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .hero-meta-block {
+    min-width: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-meta-label {
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--text-3);
+    margin-bottom: 6px;
+  }
+  .hero-meta-value {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--text-1);
+    letter-spacing: 0.005em;
+    line-height: 1.2;
+  }
+  .hero-meta-value .num {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-0);
+  }
+  @media (max-width: 768px) {
+    .hero-meta { justify-content: flex-start; gap: 32px; }
+  }
+
+  /* ───────────── Filter bar (sticky) ───────────── */
+  .filters {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(10,10,11,0.86);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--line);
+    transition: padding var(--t);
+  }
+  .filters-inner {
+    padding: 22px 0;
+    display: grid;
+    grid-template-columns: minmax(200px, 280px) 1fr auto;
+    gap: 32px;
+    align-items: center;
+    transition: padding var(--t);
+  }
+  .filters.is-condensed .filters-inner { padding: 14px 0; }
+
+  .search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--line-strong);
+    transition: border-color var(--t);
+  }
+  .search:focus-within { border-bottom-color: var(--copper); }
+  .search svg {
+    width: 14px; height: 14px;
+    color: var(--text-2);
+    flex-shrink: 0;
+  }
+  .search input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding: 10px 0 10px 12px;
+    font-size: 13px;
+    color: var(--text-0);
+    letter-spacing: 0.01em;
+  }
+  .search input::placeholder { color: var(--text-3); font-style: italic; }
+  .search-clear {
+    color: var(--text-3);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 4px 0 4px 8px;
+    display: none;
+  }
+  .search-clear:hover { color: var(--copper); }
+  .search.has-value .search-clear { display: inline; }
+
+  .seg-and-counter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 28px;
+  }
+
+  .seg {
+    display: inline-flex;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 3px;
+    background: var(--bg-1);
+  }
+  .seg button {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-2);
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: color var(--t), background var(--t);
+    white-space: nowrap;
+  }
+  .seg button:hover { color: var(--text-0); }
+  .seg button.is-active {
+    background: var(--copper);
+    color: #14100A;
+  }
+
+  .counter {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .counter .n { color: var(--text-0); font-variant-numeric: tabular-nums; }
+
+  .filter-row-2 {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    padding-top: 16px;
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .filter-row-2 .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    color: var(--text-3);
+    margin-right: 6px;
+  }
+  .filter-row-2 .label + .label { margin-left: 16px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-1);
+    transition: all var(--t);
+    background: transparent;
+  }
+  .chip:hover { color: var(--text-0); border-color: rgba(255,255,255,0.28); }
+  .chip .count {
+    font-size: 10px;
+    color: var(--text-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .chip.is-active {
+    color: var(--copper);
+    border-color: var(--copper-line);
+    background: var(--copper-soft);
+  }
+  .chip.is-active .count { color: var(--copper); opacity: 0.75; }
+
+  .reset-btn {
+    margin-left: auto;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--text-3);
+    padding: 6px 0;
+    transition: color var(--t);
+  }
+  .reset-btn:hover { color: var(--copper); }
+  .reset-btn[hidden] { display: none; }
+
+  @media (max-width: 1024px) {
+    .filters-inner { grid-template-columns: 1fr; gap: 16px; }
+    .seg-and-counter { justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  }
+
+  /* ───────────── Grid ───────────── */
+  .grid-section {
+    padding: 56px 0 96px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 56px 24px;
+  }
+  @media (max-width: 1280px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 48px 20px; } }
+  @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  /* Card */
+  .card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--t);
+    will-change: transform;
+    position: relative;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: card-in 600ms cubic-bezier(.2,.6,.2,1) forwards;
+  }
+  @keyframes card-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card:hover { transform: translateY(-3px); }
+  .card-image {
+    aspect-ratio: 3 / 4;
+    background: var(--bg-4);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--line);
+  }
+  .card-image img,
+  .card-image .swatch {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 700ms cubic-bezier(.2,.6,.2,1), opacity 400ms ease;
+  }
+  .card:hover .card-image img,
+  .card:hover .card-image .swatch { transform: scale(1.025); }
+  .card-image .no-sample {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-3);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    background: var(--bg-4);
+  }
+  .card-image::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--copper);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms cubic-bezier(.2,.6,.2,1);
+  }
+  .card:hover .card-image::after { transform: scaleX(1); }
+
+  .card-body {
+    padding: 18px 2px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .card-supplier {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--copper);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-supplier .sep {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--copper);
+    opacity: 0.5;
+    display: inline-block;
+  }
+  .card-supplier .alt {
+    color: var(--text-1);
+    font-family: var(--serif);
+    font-style: italic;
+    text-transform: none;
+    font-size: 16px;
+    letter-spacing: 0.005em;
+    font-weight: 400;
+  }
+  .card-name-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 2px 0 0;
+    flex-wrap: wrap;
+  }
+  .card-name {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.15;
+    color: var(--text-0);
+    letter-spacing: 0.005em;
+    margin: 0;
+  }
+  .card-texture {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--text-2);
+    padding-left: 12px;
+    border-left: 1px solid var(--line-strong);
+    line-height: 1;
+    /* optical compensation: serif's geometric center sits below its visual center,
+       nudge texture down a hair so MATT visually centers with cap-height of name */
+    transform: translateY(1px);
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-top: 8px;
+  }
+  .tag {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-2);
+    padding: 3px 0;
+    position: relative;
+  }
+  .tag + .tag::before {
+    content: "·";
+    margin-right: 10px;
+    color: var(--text-3);
+    margin-left: -8px;
+  }
+  .tag.collection { color: var(--text-1); }
+
+  /* ───────────── States: skeleton, empty, error ───────────── */
+  .skeleton {
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(110deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%);
+    background-size: 220% 100%;
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+  .skeleton-line {
+    height: 10px;
+    margin-top: 14px;
+    background: linear-gradient(110deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%);
+    background-size: 220% 100%;
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+  .skeleton-line.short { width: 40%; }
+  .skeleton-line.med { width: 70%; }
+  @keyframes shimmer {
+    0%   { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  .state-block {
+    text-align: center;
+    padding: 96px 24px;
+    border: 1px solid var(--line);
+    margin: 24px 0;
+  }
+  .state-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 36px;
+    color: var(--text-0);
+    margin: 0 0 12px;
+    letter-spacing: 0.005em;
+  }
+  .state-text {
+    color: var(--text-2);
+    font-size: 14px;
+    margin: 0 auto 28px;
+    max-width: 380px;
+  }
+  .ghost-btn {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--copper);
+    padding: 12px 28px;
+    border: 1px solid var(--copper-line);
+    transition: all var(--t);
+  }
+  .ghost-btn:hover { background: var(--copper-soft); border-color: var(--copper); }
+
+  /* ───────────── Drawer ───────────── */
+  .drawer-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(6,6,8,0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 360ms ease;
+    z-index: 60;
+  }
+  .drawer-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+  .drawer {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(820px, 92vw);
+    background: var(--bg-1);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 480ms cubic-bezier(.2,.6,.2,1);
+    z-index: 70;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .drawer.is-open { transform: translateX(0); }
+  @media (max-width: 768px) {
+    .drawer {
+      top: auto;
+      width: 100%;
+      height: 92vh;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+      transform: translateY(100%);
+    }
+    .drawer.is-open { transform: translateY(0); }
+  }
+
+  .drawer-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-1);
+    background: rgba(20,20,26,0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    z-index: 5;
+    transition: all var(--t);
+  }
+  .drawer-close:hover { color: var(--copper); border-color: var(--copper-line); }
+
+  .drawer-scroll {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+  }
+  @media (max-width: 768px) {
+    .drawer-scroll { grid-template-columns: 1fr; }
+  }
+  .drawer-image {
+    background: var(--bg-3);
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+  }
+  .drawer-image img, .drawer-image .swatch {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .drawer-image .no-sample {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-3);
+    font-style: italic;
+  }
+  @media (max-width: 768px) {
+    .drawer-image { aspect-ratio: 4/3; }
+  }
+
+  .drawer-info {
+    padding: 56px 48px 56px;
+  }
+  @media (max-width: 768px) {
+    .drawer-info { padding: 32px 24px 48px; }
+  }
+  .di-supplier {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .di-supplier::before {
+    content: ""; width: 22px; height: 1px; background: var(--copper); display: inline-block;
+  }
+  .di-name {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    margin: 0 0 12px;
+  }
+  .di-altname {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text-2);
+    margin-bottom: 32px;
+  }
+
+  .di-section {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    margin-top: 32px;
+  }
+  .di-section-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 14px;
+  }
+  .di-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+  }
+  .di-field-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 6px;
+  }
+  .di-field-value {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--text-0);
+    font-weight: 400;
+    letter-spacing: 0.005em;
+  }
+  .di-field-value.muted { color: var(--text-2); font-style: italic; font-size: 16px; }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 14px;
+  }
+  .app-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--text-1);
+  }
+  .app-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--bg-4);
+    flex-shrink: 0;
+    transition: all var(--t);
+  }
+  .app-row.on .app-dot { background: var(--copper); box-shadow: 0 0 0 3px var(--copper-soft); }
+  .app-row.on { color: var(--text-0); }
+  .app-row.off { color: var(--text-3); }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    padding: 6px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-1);
+  }
+
+  /* ───────────── Footer ───────────── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 56px 0 64px;
+    color: var(--text-3);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .footer-row {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .footer-row .copper-dot {
+    display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--copper); margin: 0 10px 2px; vertical-align: middle;
+  }
+
+  /* utility */
+  [hidden] { display: none !important; }
+</style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <img src="logo_otimizado_github.png" alt="Conecta" class="logo">
-            <h1>Cores Movelmar</h1>
+
+<div class="shell">
+  <header class="topbar">
+    <div class="brand-group">
+      <div class="brand-primary">
+        <img src="assets/conecta-logo.png" alt="Conecta" />
+        <span class="name">conecta</span>
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand"><span>Movelmar</span><span class="dot"></span><span class="meta">Material Library</span></div>
+    </div>
+    <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-3);"></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">Catálogo · 2026</div>
+      <h1 class="hero-title">Cores <em>&amp; Materiais.</em></h1>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-block">
+        <div class="hero-meta-label">Referências</div>
+        <div class="hero-meta-value"><span class="num" id="hero-count">—</span></div>
+      </div>
+      <div class="hero-meta-block">
+        <div class="hero-meta-label">Coleções</div>
+        <div class="hero-meta-value">Sublime · Unique</div>
+      </div>
+      <div class="hero-meta-block">
+        <div class="hero-meta-label">Fornecedores</div>
+        <div class="hero-meta-value"><span class="num" id="hero-suppliers">—</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="filters" id="filters">
+  <div class="shell">
+    <div class="filters-inner">
+      <div class="search" id="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input id="search" type="text" placeholder="Buscar por nome, fornecedor ou textura…" aria-label="Buscar referências" />
+        <button class="search-clear" id="search-clear" aria-label="Limpar busca">limpar</button>
+      </div>
+
+      <div class="seg-and-counter">
+        <div class="seg" role="tablist" aria-label="Coleção">
+          <button data-collection="all" class="is-active">Todas</button>
+          <button data-collection="sublime">Sublime · MDP</button>
+          <button data-collection="unique">Unique · MDF</button>
         </div>
-    </header>
-    <main class="container">
-        <p class="update-info">Atualizado em tempo real</p>
-        <div id="content">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                Carregando cores...
-            </div>
-        </div>
-    </main>
-    <footer class="footer">
-        <a href="https://conectamoveis.net.br">Conecta Representações</a>
-    </footer>
-    <script>
-        const SUPABASE_URL = 'https://jjtfzteodsazbdkyubhr.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdGZ6dGVvZHNhemJka3l1YmhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxOTY0OTYsImV4cCI6MjA4MTc3MjQ5Nn0.8oUi04Xcv-ueGn2xLBU3ClGs9JYcd6L3i9QJ2ppGYNY';
+        <div class="counter">Mostrando <span class="n" id="count-shown">—</span> de <span class="n" id="count-total">—</span></div>
+      </div>
 
-        async function loadCores() {
-            try {
-                const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/mvmr_cores?select=nome,nome_fornecedor,fornecedor,linha,tipo_material,textura&ativo=eq.true&order=linha,nome`,
-                    {
-                        headers: {
-                            'apikey': SUPABASE_ANON_KEY,
-                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                        }
-                    }
-                );
-                if (!response.ok) throw new Error('Erro ao carregar dados');
-                const cores = await response.json();
-                renderCores(cores);
-            } catch (error) {
-                document.getElementById('content').innerHTML = '<div class="loading" style="color: #ef4444;">Erro ao carregar cores.</div>';
-            }
-        }
+      <div class="filter-row-2">
+        <span class="label">Fornecedor</span>
+        <div id="suppliers" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+        <span class="label">Aplicação</span>
+        <div id="apps" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+        <button class="reset-btn" id="reset-btn" hidden>Limpar refinamentos</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        function renderCores(cores) {
-            const sublime = cores.filter(c => c.linha === 'sublime');
-            const unique = cores.filter(c => c.linha === 'unique');
-            let html = '';
-            
-            if (sublime.length > 0) {
-                html += `<section class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">Coleção Sublime</h2>
-                        <span class="badge badge-mdp">MDP</span>
-                        <span class="count">${sublime.length} cores</span>
-                    </div>
-                    <div class="cores-grid">${sublime.map(renderCorCard).join('')}</div>
-                </section>`;
-            }
-            
-            if (unique.length > 0) {
-                html += `<section class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">Coleção Unique</h2>
-                        <span class="badge badge-mdf">MDF</span>
-                        <span class="count">${unique.length} cores</span>
-                    </div>
-                    <div class="cores-grid">${unique.map(renderCorCard).join('')}</div>
-                </section>`;
-            }
-            document.getElementById('content').innerHTML = html;
-        }
+<div class="shell">
+  <section class="grid-section">
+    <div class="grid" id="grid"></div>
+    <div id="empty" class="state-block" hidden>
+      <h2 class="state-title">Nenhuma referência encontrada</h2>
+      <p class="state-text">Os refinamentos atuais não retornaram resultados. Experimente ampliar a seleção ou limpar os filtros para retomar a coleção completa.</p>
+      <button class="ghost-btn" id="empty-reset">Limpar refinamentos</button>
+    </div>
+    <div id="error" class="state-block" hidden>
+      <h2 class="state-title">Catálogo temporariamente indisponível</h2>
+      <p class="state-text">Não foi possível carregar a biblioteca de materiais neste momento. Verifique sua conexão e tente novamente em instantes.</p>
+      <button class="ghost-btn" id="retry-btn">Tentar novamente</button>
+    </div>
+  </section>
 
-        function renderCorCard(cor) {
-            const texturaBadge = cor.textura ? `<span class="textura-badge">${cor.textura}</span>` : '';
-            return `<div class="cor-card">
-                <div class="cor-header">
-                    <div>
-                        <span class="cor-nome">${cor.nome}${texturaBadge}</span>
-                        <div class="cor-nome-forn">Fornecedor: ${cor.nome_fornecedor || cor.nome}</div>
-                    </div>
-                    <span class="cor-fornecedor">${cor.fornecedor}</span>
-                </div>
-            </div>`;
-        }
+  <footer>
+    <div class="footer-row">
+      <div>Movelmar<span class="copper-dot"></span>Atualizado dinamicamente</div>
+      <div>© <span id="year"></span> · Material Library</div>
+    </div>
+  </footer>
+</div>
 
-        loadCores();
-    </script>
+<!-- Drawer -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-name">
+  <button class="drawer-close" id="drawer-close" aria-label="Fechar detalhe">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="drawer-scroll" id="drawer-content"></div>
+</aside>
+
+<script>
+/* ============================================================
+   Movelmar · Cores & Materiais
+   ============================================================ */
+
+const SUPABASE_URL = "https://jjtfzteodsazbdkyubhr.supabase.co/rest/v1/mvmr_cores?select=*&ativo=eq.true&order=fornecedor,nome";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdGZ6dGVvZHNhemJka3l1YmhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxOTY0OTYsImV4cCI6MjA4MTc3MjQ5Nn0.8oUi04Xcv-ueGn2xLBU3ClGs9JYcd6L3i9QJ2ppGYNY";
+
+const APPS = [
+  { key: "caixa_15",   label: "Caixa 15" },
+  { key: "caixa_18",   label: "Caixa 18" },
+  { key: "frontal_15", label: "Frontal 15" },
+  { key: "frontal_18", label: "Frontal 18" },
+  { key: "shaker",     label: "Shaker" },
+  { key: "painel_15",  label: "Painel 15" },
+];
+
+/* state */
+const state = {
+  data: [],
+  q: "",
+  collection: "all", // all | sublime | unique
+  suppliers: new Set(),
+  apps: new Set(),
+};
+
+/* ───────────── DOM refs ───────────── */
+const $ = (id) => document.getElementById(id);
+const grid = $("grid");
+const emptyEl = $("empty");
+const errorEl = $("error");
+const searchEl = $("search");
+const searchWrap = $("search-wrap");
+const searchClear = $("search-clear");
+const suppliersEl = $("suppliers");
+const appsEl = $("apps");
+const countShown = $("count-shown");
+const countTotal = $("count-total");
+const heroCount = $("hero-count");
+const heroSuppliers = $("hero-suppliers");
+const resetBtn = $("reset-btn");
+const drawer = $("drawer");
+const drawerBackdrop = $("drawer-backdrop");
+const drawerContent = $("drawer-content");
+const filtersBar = $("filters");
+
+$("year").textContent = new Date().getFullYear();
+
+/* ───────────── Skeleton loading ───────────── */
+function renderSkeleton(n = 8) {
+  grid.innerHTML = "";
+  for (let i = 0; i < n; i++) {
+    const wrap = document.createElement("div");
+    wrap.className = "card";
+    wrap.style.animation = "none";
+    wrap.style.opacity = "1";
+    wrap.style.transform = "none";
+    wrap.style.cursor = "default";
+    wrap.innerHTML = `
+      <div class="skeleton"></div>
+      <div class="card-body">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line med"></div>
+      </div>`;
+    grid.appendChild(wrap);
+  }
+}
+
+/* ───────────── Fetch ───────────── */
+async function fetchWithTimeout(url, opts, ms = 12000) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, { ...opts, signal: ctrl.signal });
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+async function tryFetch(url) {
+  const r = await fetchWithTimeout(url, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      Accept: "application/json",
+    },
+  });
+  const text = await r.text();
+  if (!r.ok) {
+    throw new Error(`HTTP ${r.status} — ${text.slice(0, 200)}`);
+  }
+  try { return JSON.parse(text); }
+  catch { throw new Error("Resposta inválida do servidor"); }
+}
+
+async function fetchData() {
+  errorEl.hidden = true;
+  emptyEl.hidden = true;
+  renderSkeleton(8);
+
+  try {
+    const json = await tryFetch(SUPABASE_URL);
+    if (!Array.isArray(json)) throw new Error("Resposta inesperada do servidor");
+    json.sort((a, b) => {
+      const f = (a.fornecedor || "").localeCompare(b.fornecedor || "", "pt-BR");
+      return f !== 0 ? f : (a.nome || "").localeCompare(b.nome || "", "pt-BR");
+    });
+    state.data = json;
+    onDataLoaded();
+  } catch (e) {
+    console.warn("[movelmar] carga falhou:", e);
+    grid.innerHTML = "";
+    errorEl.hidden = false;
+    const msg = errorEl.querySelector(".state-text");
+    if (msg) msg.textContent = `Não foi possível carregar a biblioteca de materiais. ${e.message}`;
+  }
+}
+
+function onDataLoaded() {
+  // hero/totals
+  const total = state.data.length;
+  heroCount.textContent = total.toString().padStart(2, "0");
+  countTotal.textContent = total;
+
+  const supplierSet = [...new Set(state.data.map(d => d.fornecedor).filter(Boolean))].sort();
+  heroSuppliers.textContent = supplierSet.length;
+
+  // build supplier chips
+  suppliersEl.innerHTML = "";
+  supplierSet.forEach(s => {
+    const c = state.data.filter(d => d.fornecedor === s).length;
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.dataset.supplier = s;
+    b.innerHTML = `<span>${s}</span><span class="count">${c.toString().padStart(2,"0")}</span>`;
+    b.addEventListener("click", () => {
+      if (state.suppliers.has(s)) state.suppliers.delete(s);
+      else state.suppliers.add(s);
+      b.classList.toggle("is-active");
+      render();
+    });
+    suppliersEl.appendChild(b);
+  });
+
+  // build apps chips
+  appsEl.innerHTML = "";
+  APPS.forEach(a => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.innerHTML = `<span>${a.label}</span>`;
+    b.addEventListener("click", () => {
+      if (state.apps.has(a.key)) state.apps.delete(a.key);
+      else state.apps.add(a.key);
+      b.classList.toggle("is-active");
+      render();
+    });
+    appsEl.appendChild(b);
+  });
+
+  render();
+}
+
+/* ───────────── Filtering ───────────── */
+function getFiltered() {
+  const q = state.q.trim().toLowerCase();
+  return state.data.filter(d => {
+    if (state.collection !== "all") {
+      const linha = (d.linha || "").toLowerCase();
+      if (linha !== state.collection) return false;
+    }
+    if (state.suppliers.size > 0 && !state.suppliers.has(d.fornecedor)) return false;
+    if (state.apps.size > 0) {
+      let any = false;
+      for (const k of state.apps) {
+        if (d[k]) { any = true; break; }
+      }
+      if (!any) return false;
+    }
+    if (q) {
+      const hay = [
+        d.nome, d.nome_fornecedor, d.fornecedor, d.textura, d.acabamento, d.linha
+      ].filter(Boolean).join(" ").toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+/* ───────────── Render grid ───────────── */
+function rgbStr(rgb) {
+  if (!rgb) return null;
+  const r = rgb.r ?? rgb[0];
+  const g = rgb.g ?? rgb[1];
+  const b = rgb.b ?? rgb[2];
+  if (r == null || g == null || b == null) return null;
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function makeImageNode(d, alt) {
+  const wrap = document.createElement("div");
+  wrap.className = "card-image";
+
+  const rgb = rgbStr(d.cor_base_rgb);
+
+  if (d.textura_url) {
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.alt = alt;
+    img.src = d.textura_url;
+    img.style.opacity = "0";
+    img.addEventListener("load", () => { img.style.opacity = "1"; }, { once: true });
+    img.addEventListener("error", () => {
+      // fallback to swatch
+      img.remove();
+      if (rgb) {
+        const sw = document.createElement("div");
+        sw.className = "swatch";
+        sw.style.background = rgb;
+        sw.style.opacity = "0";
+        wrap.appendChild(sw);
+        requestAnimationFrame(() => sw.style.opacity = "1");
+      } else {
+        const ns = document.createElement("div");
+        ns.className = "no-sample";
+        ns.textContent = "sem amostra";
+        wrap.appendChild(ns);
+      }
+    }, { once: true });
+    wrap.appendChild(img);
+  } else if (rgb) {
+    const sw = document.createElement("div");
+    sw.className = "swatch";
+    sw.style.background = rgb;
+    wrap.appendChild(sw);
+  } else {
+    const ns = document.createElement("div");
+    ns.className = "no-sample";
+    ns.textContent = "sem amostra";
+    wrap.appendChild(ns);
+  }
+  return wrap;
+}
+
+function collectionLabel(d) {
+  const l = (d.linha || "").toLowerCase();
+  if (l === "sublime") return "Sublime";
+  if (l === "unique") return "Unique";
+  return d.tipo_material || null;
+}
+
+function render() {
+  const list = getFiltered();
+  countShown.textContent = list.length;
+
+  resetBtn.hidden = !(state.q || state.collection !== "all" || state.suppliers.size || state.apps.size);
+
+  if (list.length === 0 && state.data.length > 0) {
+    grid.innerHTML = "";
+    emptyEl.hidden = false;
+    return;
+  }
+  emptyEl.hidden = true;
+
+  grid.innerHTML = "";
+  list.forEach((d, i) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.style.animationDelay = `${Math.min(i, 16) * 35}ms`;
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Ver detalhes de ${d.nome}`);
+
+    const altText = `Amostra de ${d.nome}${d.fornecedor ? ` por ${d.fornecedor}` : ""}`;
+    card.appendChild(makeImageNode(d, altText));
+
+    const body = document.createElement("div");
+    body.className = "card-body";
+
+    const sup = document.createElement("div");
+    sup.className = "card-supplier";
+    const fornecedor = d.fornecedor || "—";
+    const nfornec = d.nome_fornecedor && d.nome_fornecedor.trim() ? d.nome_fornecedor : null;
+    if (nfornec) {
+      sup.innerHTML = `<span>${fornecedor}</span><span class="sep"></span><span class="alt">${nfornec}</span>`;
+    } else {
+      sup.textContent = fornecedor;
+    }
+    body.appendChild(sup);
+
+    const nameRow = document.createElement("div");
+    nameRow.className = "card-name-row";
+    const name = document.createElement("h3");
+    name.className = "card-name";
+    name.textContent = d.nome || "Sem nome";
+    nameRow.appendChild(name);
+    if (d.textura) {
+      const tx = document.createElement("span");
+      tx.className = "card-texture";
+      tx.textContent = d.textura;
+      nameRow.appendChild(tx);
+    }
+    body.appendChild(nameRow);
+
+    const tags = document.createElement("div");
+    tags.className = "card-tags";
+    const col = collectionLabel(d);
+    if (col) {
+      const t = document.createElement("span");
+      t.className = "tag collection";
+      t.textContent = col;
+      tags.appendChild(t);
+    }
+    if (d.acabamento && d.acabamento !== "padrao") {
+      const t = document.createElement("span");
+      t.className = "tag";
+      t.textContent = d.acabamento;
+      tags.appendChild(t);
+    }
+    body.appendChild(tags);
+
+    card.appendChild(body);
+    card.addEventListener("click", () => openDrawer(d));
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDrawer(d); }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+/* ───────────── Drawer ───────────── */
+function openDrawer(d) {
+  drawerContent.innerHTML = "";
+
+  // image side
+  drawerContent.appendChild(makeImageNode(d, `Amostra de ${d.nome}`));
+
+  // info side
+  const info = document.createElement("div");
+  info.className = "drawer-info";
+
+  const sup = document.createElement("div");
+  sup.className = "di-supplier";
+  sup.textContent = d.fornecedor || "—";
+  info.appendChild(sup);
+
+  const name = document.createElement("h2");
+  name.className = "di-name";
+  name.id = "drawer-name";
+  name.textContent = d.nome || "Sem nome";
+  info.appendChild(name);
+
+  if (d.nome_fornecedor && d.nome_fornecedor !== d.nome) {
+    const alt = document.createElement("div");
+    alt.className = "di-altname";
+    alt.textContent = d.nome_fornecedor;
+    info.appendChild(alt);
+  }
+
+  // Specs grid
+  const spec = document.createElement("div");
+  spec.className = "di-section";
+  spec.innerHTML = `<div class="di-section-label">Especificação</div>`;
+  const grid2 = document.createElement("div");
+  grid2.className = "di-grid";
+
+  const fields = [
+    ["Coleção", collectionLabel(d) || "—"],
+    ["Material", d.tipo_material || "—"],
+    ["Textura", d.textura || "—"],
+    ["Acabamento", d.acabamento || "—"],
+  ];
+  fields.forEach(([k, v]) => {
+    const cell = document.createElement("div");
+    cell.innerHTML = `<div class="di-field-label">${k}</div><div class="di-field-value">${v}</div>`;
+    grid2.appendChild(cell);
+  });
+  spec.appendChild(grid2);
+  info.appendChild(spec);
+
+  // Espessuras
+  const espessuras = Array.isArray(d.espessuras) ? d.espessuras.filter(Boolean) : [];
+  if (espessuras.length > 0) {
+    const sec = document.createElement("div");
+    sec.className = "di-section";
+    sec.innerHTML = `<div class="di-section-label">Espessuras disponíveis</div>`;
+    const pills = document.createElement("div");
+    pills.className = "pill-row";
+    espessuras.forEach(e => {
+      const p = document.createElement("span");
+      p.className = "pill";
+      p.textContent = e;
+      pills.appendChild(p);
+    });
+    sec.appendChild(pills);
+    info.appendChild(sec);
+  }
+
+  // Aplicações
+  const appsSec = document.createElement("div");
+  appsSec.className = "di-section";
+  appsSec.innerHTML = `<div class="di-section-label">Aplicações</div>`;
+  const ag = document.createElement("div");
+  ag.className = "app-grid";
+  APPS.forEach(a => {
+    const on = !!d[a.key];
+    const row = document.createElement("div");
+    row.className = `app-row ${on ? "on" : "off"}`;
+    row.innerHTML = `<span class="app-dot"></span><span>${a.label}</span>`;
+    ag.appendChild(row);
+  });
+  appsSec.appendChild(ag);
+  info.appendChild(appsSec);
+
+  drawerContent.appendChild(info);
+
+  drawer.classList.add("is-open");
+  drawerBackdrop.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeDrawer() {
+  drawer.classList.remove("is-open");
+  drawerBackdrop.classList.remove("is-open");
+  document.body.style.overflow = "";
+}
+
+$("drawer-close").addEventListener("click", closeDrawer);
+drawerBackdrop.addEventListener("click", closeDrawer);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeDrawer();
+});
+
+/* ───────────── Filter wiring ───────────── */
+searchEl.addEventListener("input", (e) => {
+  state.q = e.target.value;
+  searchWrap.classList.toggle("has-value", state.q.length > 0);
+  render();
+});
+searchClear.addEventListener("click", () => {
+  state.q = "";
+  searchEl.value = "";
+  searchWrap.classList.remove("has-value");
+  render();
+});
+
+document.querySelectorAll("[data-collection]").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("[data-collection]").forEach(x => x.classList.remove("is-active"));
+    b.classList.add("is-active");
+    state.collection = b.dataset.collection;
+    render();
+  });
+});
+
+function resetAll() {
+  state.q = "";
+  state.collection = "all";
+  state.suppliers.clear();
+  state.apps.clear();
+  searchEl.value = "";
+  searchWrap.classList.remove("has-value");
+  document.querySelectorAll("[data-collection]").forEach(x => x.classList.remove("is-active"));
+  document.querySelector('[data-collection="all"]').classList.add("is-active");
+  document.querySelectorAll("#suppliers .chip, #apps .chip").forEach(c => c.classList.remove("is-active"));
+  render();
+}
+resetBtn.addEventListener("click", resetAll);
+$("empty-reset").addEventListener("click", resetAll);
+$("retry-btn").addEventListener("click", fetchData);
+
+/* sticky condensed on scroll */
+let lastY = 0;
+window.addEventListener("scroll", () => {
+  const y = window.scrollY;
+  if (y > 220) filtersBar.classList.add("is-condensed");
+  else filtersBar.classList.remove("is-condensed");
+  lastY = y;
+}, { passive: true });
+
+/* go */
+fetchData();
+</script>
 </body>
 </html>
