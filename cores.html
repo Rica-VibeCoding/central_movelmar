@@ -931,8 +931,6 @@
     font-weight: 400;
     letter-spacing: 0.005em;
   }
-  .di-field-value.muted { color: var(--text-2); font-style: italic; font-size: 16px; }
-
   .di-notes {
     font-family: var(--serif);
     font-size: 15px;
@@ -1556,7 +1554,7 @@ function openDrawer(d) {
     ["Coleção", collectionLabel(d) || "—"],
     ["Material", d.tipo_material || "—"],
     ["Textura", d.textura || "—"],
-    ["Acabamento", acabamentoLabel(d) || "—"],
+    ["Acabamento", acabamentoLabel(d) || d.acabamento || "—"],
   ];
   fields.forEach(([k, v]) => {
     const cell = document.createElement("div");
