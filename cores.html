@@ -449,6 +449,7 @@
     position: fixed;
     left: 0; right: 0; bottom: 0;
     max-height: 82vh;
+    max-height: 82dvh;
     background: var(--bg-1);
     border-top: 1px solid var(--line);
     border-radius: 18px 18px 0 0;
@@ -778,6 +779,8 @@
       top: auto;
       width: 100%;
       height: 92vh;
+      height: 92dvh;
+      max-height: 92dvh;
       border-left: 0;
       border-top: 1px solid var(--line);
       border-radius: 18px 18px 0 0;
@@ -849,6 +852,7 @@
     .drawer-image {
       aspect-ratio: auto;
       height: 42vh;
+      height: 42dvh;
       max-height: 360px;
     }
   }
@@ -864,17 +868,17 @@
   .drawer-image img, .drawer-image .swatch { z-index: 1; }
 
   .drawer-info {
-    padding: 56px 48px 56px;
+    padding: 40px 48px 40px;
   }
   @media (max-width: 768px) {
-    .drawer-info { padding: 32px 24px 48px; }
+    .drawer-info { padding: 28px 24px 40px; }
   }
   .di-supplier {
     font-size: 10px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--copper);
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     display: flex; align-items: center; gap: 12px;
   }
   .di-supplier::before {
@@ -883,23 +887,23 @@
   .di-name {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(36px, 5vw, 52px);
+    font-size: clamp(30px, 3.6vw, 42px);
     line-height: 1.05;
     letter-spacing: -0.005em;
-    margin: 0 0 12px;
+    margin: 0 0 8px;
   }
   .di-altname {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text-2);
-    margin-bottom: 32px;
+    margin-bottom: 22px;
   }
 
   .di-section {
     border-top: 1px solid var(--line);
-    padding-top: 24px;
-    margin-top: 32px;
+    padding-top: 18px;
+    margin-top: 20px;
   }
   .di-section-label {
     font-size: 10px;
@@ -911,7 +915,7 @@
   .di-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px 24px;
+    gap: 12px 24px;
   }
   .di-field-label {
     font-size: 10px;
@@ -931,8 +935,8 @@
 
   .di-notes {
     font-family: var(--serif);
-    font-size: 16px;
-    line-height: 1.55;
+    font-size: 15px;
+    line-height: 1.5;
     color: var(--text-1);
     margin: 0;
     white-space: pre-wrap;
@@ -940,16 +944,19 @@
 
   .app-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px 14px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 14px;
+  }
+  @media (max-width: 768px) {
+    .app-grid { grid-template-columns: repeat(2, 1fr); }
   }
   .app-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 0;
+    gap: 10px;
+    padding: 6px 0;
     border-bottom: 1px solid var(--line);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--text-1);
   }
   .app-dot {
