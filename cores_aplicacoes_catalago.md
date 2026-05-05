@@ -162,6 +162,16 @@ Na maioria das cores, `nome` e `nome_fornecedor` coincidem.
 
 - A coluna `tipo` (text, sempre null) foi removida em 2026-05-05 — era legado, sem uso no código nem no `.md`. `tipo_material` é a fonte ativa.
 
+**Histórico de dados:**
+
+- 2026-05-05: corrigidas aplicações de painéis em 9 cores que estavam com `painel_18`/`painel_25`/`tamburato_42 = false` no banco mas o PDF documentava como disponíveis:
+  - **Sublime** — Pérola Absoluto, Downtown: `painel_25 = true`.
+  - **Unique** — Branco Diamante: invertido `painel_15`/`painel_18` (era 15/false→18/true) pra refletir "Painéis 18 mm" do PDF; Blush: `painel_25`; Lago: `painel_25` + `tamburato_42`; Nogueira Flórida, Pietra Bronze, Thassos: `tamburato_42`; Off White: `painel_18` + `painel_25` + `tamburato_42`.
+
+**Dúvida pendente de fábrica:**
+
+- **Brise (Sublime)** — banco diz `painel_25 = true`, PDF pág. 2 diz "Painéis 15 mm" (sem 25). Banco mais generoso. Confirmar com a fábrica se Brise faz painéis 25 mm ou só 15 mm.
+
 **Histórico de UI (`cores.html`):**
 
 - 2026-05-05: filtro e ficha técnica passaram a expor todas as 9 aplicações reais do banco (`caixa_15/18`, `frontal_15/18`, `painel_15/18/25`, `tamburato_42`, `shaker`). Antes só listavam 6.
