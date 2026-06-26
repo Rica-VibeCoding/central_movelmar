@@ -284,8 +284,11 @@
 
 // Endpoint REST: filtra só publicados e já ordena na própria query.
 const SUPABASE_URL = "https://jjtfzteodsazbdkyubhr.supabase.co/rest/v1/mvmr_lancamentos?select=*&ativo=eq.true&order=ordem.asc,data_lancamento.desc";
-// Chave anon (role anon, read-only). Pode ficar no HTML — é pública por design.
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqdGZ6dGVvZHNhemJka3l1YmhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxOTY0OTYsImV4cCI6MjA4MTc3MjQ5Nn0.8oUi04Xcv-ueGn2xLBU3ClGs9JYcd6L3i9QJ2ppGYNY";
+// Chave PUBLISHABLE (formato novo do Supabase, sb_publishable_...). É o que
+// substituiu a antiga "anon key" pra código que roda no navegador — mesma
+// permissão baixa (read-only, RLS protege). Pode ficar no HTML: é pública por
+// design. Validado no Context7 em 26/06/2026 como a forma atual.
+const SUPABASE_KEY = "sb_publishable_12hExvMmxCsQ8jo0dClJUA_n-gyzTHu";
 
 const $ = (id) => document.getElementById(id);
 const grid = $("grid");
@@ -328,9 +331,12 @@ async function tryFetch(url, ms = 12000) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), ms);
   try {
+    // Forma atual do Supabase REST: o header `apikey` sozinho já resolve o
+    // papel anon. O `Authorization: Bearer` virou redundante pra leitura
+    // pública (confirmado no Context7 26/06/2026).
     const r = await fetch(url, {
       signal: ctrl.signal,
-      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+      headers: { apikey: SUPABASE_KEY },
     });
     if (!r.ok) throw new Error("HTTP " + r.status);
     return await r.json();

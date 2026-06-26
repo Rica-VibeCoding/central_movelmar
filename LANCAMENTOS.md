@@ -13,7 +13,7 @@ No ar: https://rica-vibecoding.github.io/central_movelmar/lancamentos.html
 Mesma arquitetura da `cores.html`:
 
 - A página é **estática** (GitHub Pages), mas os **dados são ao vivo** do Supabase (banco `ze`, tabela `mvmr_lancamentos`).
-- A página **lê** com a *anon key* (só leitura). A segurança (RLS) no banco garante que o site **só enxerga linhas publicadas** (`ativo = true`) — rascunho nunca vaza.
+- A página **lê** com a *publishable key* (`sb_publishable_…`, só leitura — é o formato novo do Supabase que substituiu a antiga *anon key*; mesma permissão baixa). A segurança (RLS) no banco garante que o site **só enxerga linhas publicadas** (`ativo = true`) — rascunho nunca vaza.
 - **Eu escrevo** no banco com a *service key* (que pula a RLS).
 - Resultado: pra publicar um lançamento **eu não mexo no código nem dou `git push`** — só insiro uma linha no banco e a página atualiza sozinha.
 
