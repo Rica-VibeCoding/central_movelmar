@@ -131,7 +131,7 @@
     opacity: 0; transform: translateY(12px); animation: card-in 600ms cubic-bezier(.2,.6,.2,1) forwards;
   }
   @media (max-width: 880px) { .feature { grid-template-columns: 1fr; gap: 0; } }
-  .feature-img { aspect-ratio: 4 / 3; background: var(--bg-4); position: relative; overflow: hidden; }
+  .feature-img { aspect-ratio: 4 / 5; background: var(--bg-4); position: relative; overflow: hidden; cursor: zoom-in; }
   .feature-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .feature-img .no-sample { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text-3); font-style: italic; font-size: 13px; }
   .feature-body { padding: 40px 48px 40px 8px; }
@@ -152,7 +152,7 @@
     opacity: 0; transform: translateY(12px); animation: card-in 600ms cubic-bezier(.2,.6,.2,1) forwards;
   }
   @keyframes card-in { to { opacity: 1; transform: translateY(0); } }
-  .card-image { aspect-ratio: 4 / 3; background: var(--bg-4); overflow: hidden; position: relative; border: 1px solid var(--line); }
+  .card-image { aspect-ratio: 4 / 5; background: var(--bg-4); overflow: hidden; position: relative; border: 1px solid var(--line); cursor: zoom-in; }
   .card-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms cubic-bezier(.2,.6,.2,1); }
   .card:hover .card-image img { transform: scale(1.03); }
   .card-image .no-sample { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text-3); font-style: italic; font-size: 12px; background: var(--bg-4); }
@@ -171,8 +171,39 @@
   .material-btn { align-self: flex-start; margin-top: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--copper); padding: 11px 24px; border: 1px solid var(--copper-line); transition: all var(--t); }
   .material-btn:hover { background: var(--copper-soft); border-color: var(--copper); }
 
+  /* Dica "ampliar" que aparece no hover da arte */
+  .zoom-hint {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-0); background: rgba(10,10,11,0.55); backdrop-filter: blur(4px);
+    padding: 6px 10px; border: 1px solid var(--line-strong);
+    opacity: 0; transform: translateY(-4px); transition: all var(--t); pointer-events: none;
+  }
+  .card-image:hover .zoom-hint, .feature-img:hover .zoom-hint { opacity: 1; transform: translateY(0); }
+
+  /* ───────────── Lightbox (arte em tela cheia) ───────────── */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(6,6,8,0.92); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 40px;
+    opacity: 0; pointer-events: none; transition: opacity 300ms ease; cursor: zoom-out;
+  }
+  .lightbox.open { opacity: 1; pointer-events: auto; }
+  .lightbox img {
+    max-width: min(92vw, 720px); max-height: 92vh; object-fit: contain;
+    border: 1px solid var(--line-strong); box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    transform: scale(0.97); transition: transform 300ms cubic-bezier(.2,.6,.2,1);
+  }
+  .lightbox.open img { transform: scale(1); }
+  .lightbox-close {
+    position: absolute; top: 22px; right: 26px; color: var(--text-1);
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .lightbox-close:hover { color: var(--copper); }
+
   /* ───────────── Skeleton (carregando) ───────────── */
-  .skeleton { aspect-ratio: 4 / 3; background: linear-gradient(110deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%); background-size: 220% 100%; animation: shimmer 2.4s ease-in-out infinite; border: 1px solid var(--line); }
+  .skeleton { aspect-ratio: 4 / 5; background: linear-gradient(110deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%); background-size: 220% 100%; animation: shimmer 2.4s ease-in-out infinite; border: 1px solid var(--line); }
   .skeleton-line { height: 10px; margin-top: 14px; background: linear-gradient(110deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%); background-size: 220% 100%; animation: shimmer 2.4s ease-in-out infinite; }
   .skeleton-line.short { width: 40%; } .skeleton-line.med { width: 70%; }
   @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
@@ -272,7 +303,7 @@
    COMO FUNCIONA (resumo pra mim e pro Rica):
    - O site é estático (GitHub Pages). Os DADOS vêm ao vivo do
      Supabase via REST, igual a cores.html.
-   - Leio a tabela `mvmr_lancamentos` com a anon key (read-only).
+   - Leio a tabela `mvmr_lancamentos` com a publishable key (read-only).
      A RLS no banco só me devolve linhas com `ativo = true`, então
      rascunho nunca vaza pro site.
    - A linha com `destaque = true` vira o card grande no topo
@@ -296,7 +327,7 @@ const grid = $("grid");
 document.getElementById("year").textContent = "2026";
 
 // rótulo amigável do tipo
-const TIPO_LABEL = { cor: "Cor", produto: "Produto", colecao: "Coleção" };
+const TIPO_LABEL = { cor: "Cor", produto: "Produto", colecao: "Coleção", painel: "Painel" };
 
 // "2026-06-26" -> "26 jun 2026" (pt-BR). Monto a data como local pra
 // não cair no fuso UTC e mostrar o dia errado.
@@ -346,8 +377,11 @@ async function tryFetch(url, ms = 12000) {
 }
 
 // ---- Monta o bloco de imagem (com fallback "sem arte") ----
+// Quando tem arte, o bloco é clicável (data-full) pra abrir em tela cheia no
+// lightbox — as artes da fábrica são verticais e completas, então a graça é
+// ver inteira. role/tabindex deixam acessível por teclado.
 function imagemHTML(url, alt, wrapClass) {
-  if (url) return `<div class="${wrapClass}"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" /></div>`;
+  if (url) return `<div class="${wrapClass}" data-full="${esc(url)}" role="button" tabindex="0" aria-label="Ampliar arte: ${esc(alt)}"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" /><span class="zoom-hint">Ampliar</span></div>`;
   return `<div class="${wrapClass}"><div class="no-sample">arte em breve</div></div>`;
 }
 
@@ -372,19 +406,18 @@ function renderFeature(item) {
 }
 
 // ---- Card normal da grade ----
+// Art-forward: a arte da fábrica já traz nome, textura e o texto poético, então
+// não repito a descrição embaixo (competiria com a arte). Embaixo fica só uma
+// legenda curta — tipo + nome — pra escanear. O texto completo está na arte
+// (que abre em tela cheia no clique).
 function cardHTML(item) {
   const tipo = TIPO_LABEL[item.tipo] || item.tipo || "";
   return `
     <article class="card">
       ${imagemHTML(item.capa_url, item.titulo, "card-image")}
       <div class="card-body">
-        <div class="card-eyebrow">
-          <span>${esc(tipo)}</span><span class="sep"></span><span class="date">${esc(formatarData(item.data_lancamento))}</span>
-        </div>
+        <div class="card-eyebrow"><span>${esc(tipo)}</span></div>
         <h3 class="card-name">${esc(item.titulo)}</h3>
-        ${item.subtitulo ? `<p class="card-sub">${esc(item.subtitulo)}</p>` : ""}
-        ${item.descricao ? `<p class="card-desc">${esc(item.descricao)}</p>` : ""}
-        ${item.material_url ? `<a class="material-btn" href="${esc(item.material_url)}" target="_blank" rel="noopener">Ver material</a>` : ""}
       </div>
     </article>`;
 }
@@ -428,6 +461,44 @@ async function carregar() {
     grid.innerHTML = resto.map(cardHTML).join("");
   }
 }
+
+// ---- Lightbox: clicar numa arte abre ela em tela cheia ----
+// Crio o overlay uma vez e reaproveito. A delegação de clique pega qualquer
+// bloco de arte (.card-image / .feature-img) que tenha data-full.
+const lb = document.createElement("div");
+lb.className = "lightbox";
+lb.innerHTML = `<button class="lightbox-close" aria-label="Fechar">✕ fechar</button><img alt="" />`;
+document.body.appendChild(lb);
+const lbImg = lb.querySelector("img");
+
+function abrirLightbox(src, alt) {
+  lbImg.src = src;
+  lbImg.alt = alt || "";
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden"; // trava o scroll do fundo
+}
+function fecharLightbox() {
+  lb.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Clicar em qualquer lugar do overlay (inclusive a arte) fecha.
+lb.addEventListener("click", fecharLightbox);
+// Esc fecha.
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharLightbox(); });
+// Abrir: clique numa arte com data-full.
+document.addEventListener("click", (e) => {
+  const alvo = e.target.closest("[data-full]");
+  if (alvo) abrirLightbox(alvo.dataset.full, alvo.querySelector("img")?.alt);
+});
+// Abrir por teclado (Enter/Espaço) quando a arte está focada.
+document.addEventListener("keydown", (e) => {
+  const alvo = document.activeElement;
+  if ((e.key === "Enter" || e.key === " ") && alvo?.dataset?.full) {
+    e.preventDefault();
+    abrirLightbox(alvo.dataset.full, alvo.querySelector("img")?.alt);
+  }
+});
 
 $("retry-btn").addEventListener("click", carregar);
 carregar();
