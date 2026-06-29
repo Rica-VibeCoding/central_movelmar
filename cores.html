@@ -1316,6 +1316,15 @@ function onDataLoaded() {
     appsEl.appendChild(b);
   });
 
+  // Deep-link: ?cor= (ou ?busca=/?q=) abre o catálogo já filtrado na cor pedida — bot envia ao lojista
+  const _dl = new URLSearchParams(location.search);
+  const _dlq = _dl.get("cor") || _dl.get("busca") || _dl.get("q");
+  if (_dlq) {
+    state.q = _dlq;
+    searchEl.value = _dlq;
+    searchWrap.classList.add("has-value");
+  }
+
   render();
 }
 
